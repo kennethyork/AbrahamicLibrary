@@ -1,0 +1,35 @@
+{{header
+|title=[[../../../../]] Vol. VII, The Teaching of the Twelve Apostles
+|author= |override_author = {{Anon}}
+|translator = |override_translator=[[Author:Philip Schaff|Philip Schaff]] et al.
+|section=Chapter X
+|previous=[[../Chapter IX|Chapter IX]]
+|next=[[../Chapter XI|Chapter XI]]
+|notes=
+}}
+
+'''{{bbsc|Chapter X.<ref>
+
+This post-communion thanksgiving is f ound in {{anchor+|viii.iii.x-p1.1|2=Apostolic Constitutions}}, vii. 26, but with many omissions, alterations, and additions. Still, the correspondence in thought and language is very remarkable. Schaff cites a similar prayer at the Passover (after the Hallel cup). &#160;</ref>&#8212;Prayer After Communion.}}'''
+
+1. But after ye are filled,<ref>
+
+&#8220;After the participation&#8221; ({{anchor+|viii.iii.x-p3.1|2=Apostolic Constitutions}}) points to a distinct Eucharistic service. Here the Lord&#8217;s Supper is evidently connected with the Agape [a noteworthy suggestion]; comp. 1 Cor. xi. 20&#8211;22, 33. This is an evidence of early date; comp. Justin Martyr, {{anchor+|viii.iii.x-p3.5|2=Apol.}} i. chaps. 64&#8211;66, where the Lord&#8217;s Supper is shown to be distinct ({{anchor+|viii.iii.x-p3.6|2=Ante-Nicene Fathers}}, i. pp. 185, 186). &#160;</ref> thus give thanks: 2. We thank Thee, holy Father, for Thy holy name which Thou didst cause to tabernacle in our hearts, and for the knowledge and faith and immortality, which Thou madest known to us through Jesus Thy Servant; to Thee be the glory for ever. 3. Thou, Master almighty, didst create all things for Thy name&#8217;s sake; Thou gavest food and drink to men for enjoyment, that they might give thanks to Thee; but to us Thou didst freely give spiritual food and drink and life eternal through Thy Servant.<ref>
+
+This last clause has no parallel in {{anchor+|viii.iii.x-p4.1|2=Apostolic Constitutions}}, and points to an earlier and more spiritual conception of the Eucharist. Verse 4 also is peculiar to this passage. &#160;</ref> 4. Before all things we thank Thee that Thou art mighty; to Thee be the glory for ever. 5. Remember, Lord, Thy Church, to deliver it from all evil and to make it perfect in Thy love, and gather it from the four winds, sanctified for Thy kingdom which Thou hast prepared for it;<ref>
+
+The above rendering follows Bryennios; that of Harnack (formerly accepted by Hall and Napier) is: &#8220;Gather it, sanctified, from the four winds, into Thy kingdom,&#8221; etc. The phrase &#8220;from the four winds&#8221; recalls Matt. xxiv. 31.  &#160;</ref> for Thine is the power and the glory for ever. 6. Let grace come, and let this world pass away.<ref>
+
+This is peculiar; but comp. 1 Cor. vii. 31 for the last clause. &#160;</ref> Hosanna to the God (Son)<ref>
+
+The Codex reads &#964;&#8183; &#8058;&#949;&#8183;, which Bryennios alters to &#964;&#8183; &#8058;&#953;&#8183;. The former is the more difficult reading, and is defended by Harnack.  &#160;</ref> of David! If any one is holy, let him come; if any one is not so, let him repent.<ref>
+
+This exhortation indicates a mixed assembly; comp. {{anchor+|viii.iii.x-p8.1|2=Apostolic Constitutions}}. [If so, it belongs to the Agape.] &#160;</ref> Maran atha.<ref>
+
+Cor. xvi. 22, Revised Version, margin: &#8220;That is, our Lord cometh.&#8221; Comp. Rev. xxii. 20.  &#160;</ref> Amen. 7. But permit the prophets to make Thanksgiving as much as they desire.<ref>
+
+A limitation as compared with 1 Cor. Xiv. 29, 31, and yet indicating a combination of extemporaneous devotion with the liturgical form. The verse prepares the way for the next chapter. &#160;</ref>  &#160;
+
+
+==Footnotes==
+<references />

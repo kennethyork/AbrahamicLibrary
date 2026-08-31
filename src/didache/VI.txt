@@ -1,0 +1,29 @@
+{{header
+|title=[[../../../../]] Vol. VII, The Teaching of the Twelve Apostles
+|author= |override_author = {{Anon}}
+|translator = |override_translator=[[Author:Philip Schaff|Philip Schaff]] et al.
+|section=Chapter VI
+|previous=[[../Chapter V|Chapter V]]
+|next=[[../Chapter VII|Chapter VII]]
+|notes=
+}}
+
+'''{{bbsc|Chapter VI.<ref>
+
+Of this chapter, two phrases and one entire clause are found in {{anchor+|viii.iii.vi-p1.1|2=Apostolic Constitutions}}, vii. 19&#8211;21.  &#160;</ref>&#8212;Against False Teachers, and Food Offered to Idols.}}'''
+
+1. See that no one cause thee to err<ref>
+
+Comp. Matt. xxiv . 4 (Greek); Revised Version, &#8220;lead you astray:&#8221; {{anchor+|viii.iii.vi-p3.1|2=Apostolic Constitutions}}, vii. 19. &#160;</ref> from this way of the Teaching, since apart from God it teacheth thee. 2. For if thou art able to bear all the yoke<ref>
+
+Or, &#8220;the whole yoke.&#8221; Those who accept the Jewish-Christian authorship refer this to the ceremonial law. It seems quite as likely to mean ascetic regulations. Of these there are many traces, even in the New-Testament churches. &#160;</ref> of the Lord, thou wilt be perfect; but if thou art not able, what thou art able that do. 3. And concerning food,<ref>
+
+{{anchor+|viii.iii.vi-p5.1|2=Apostolic Constitutions}}, vii. 20, begins with a similar phrase, but is explicitly against asceticism in this respect. The precepts here do not indicate any such spirit as that opposed by Paul.  &#160;</ref> bear what thou art able; but against that which is sacrificed to idols<ref>
+
+Comp. Acts xv. 20, 29; 1 Cor. viii. 4, etc., x. 18, etc. (Rom. xiv. 20 refers to ascetic abstinence.) This prohibition had a necessary permanence; comp. {{anchor+|viii.iii.vi-p6.4|2=Apostolic Constitutions}}, vii. 21. &#160;</ref> be exceedingly on thy guard; for it is the service of dead gods.<ref>
+
+Comp. the same phrase in 2 Clement, iii. This chapter closes the first part of the Teaching, that supposed to be intended for catechumens. The absence of doctrinal statement does not necessarily prove the existence of a circle of Gentile Christians where the Pauline theology was unknown. If such a circle existed, emphasizing the ethical side of Christianity to the exclusion of its doctrinal basis, it disappeared very soon. From the nature of the case, that kind of Christianity is intellectually weak and necessarily short-lived. &#160;</ref>  &#160;
+
+
+==Footnotes==
+<references />

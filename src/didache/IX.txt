@@ -1,0 +1,31 @@
+{{header
+|title=[[../../../../]] Vol. VII, The Teaching of the Twelve Apostles
+|author= |override_author = {{Anon}}
+|translator = |override_translator=[[Author:Philip Schaff|Philip Schaff]] et al.
+|section=Chapter IX
+|previous=[[../Chapter VIII|Chapter VIII]]
+|next=[[../Chapter X|Chapter X]]
+|notes=
+}}
+
+'''{{bbsc|Chapter IX.<ref>
+
+The eucharistic prayers of this and the following chapter are only partially reproduced in {{anchor+|viii.iii.ix-p1.1|2=Apostolic Constitutions}}, vii. 25, 26; that of verse 2 has no parallel.  &#160;</ref>&#8212;The Thanksgiving (Eucharist).}}'''
+
+1. Now concerning the Thanksgiving (Eucharist), thus give thanks. 2. First, concerning the cup:<ref>
+
+This is a variation from the order of the New Testament and of all liturgies: probably this led to its omission in {{anchor+|viii.iii.ix-p3.1|2=Apostolic Constitutions}}. The word &#8220;for&#8221; may be substituted for &#8220;concerning&#8221; here and in verse 3. [Possibly a response for recipients.] &#160;</ref> We thank thee, our Father, for the holy vine of David Thy servant,<ref>
+
+Peculiar to this passage, but derived from a common scriptural figure and from the paschal formula. Comp. especially John xv. 1; Matt. xxvi. 29; Mark xiv. 25.  &#160;</ref> which Thou madest known to us through Jesus Thy Servant; to Thee be the glory for ever. 3. And concerning the broken bread:<ref>
+
+The word &#954;&#955;&#945;&#833;&#963;&#956;&#945; is found in the accounts of the feeding of the multitude (Matt. xiv. 20, xv. 37, and parallels); it was naturally applied to the broken bread of the Eucharist. &#160;</ref> We thank Thee, our Father, for the life and knowledge which Thou madest known to us through Jesus Thy Servant; to Thee be the glory for ever. 4. Even as this broken bread was scattered over the hills,<ref>
+
+This reference to &#8220;hills,&#8221; or &#8220;mountains,&#8221; is used as an argument against the Egyptian origin of the Teaching. &#160;</ref> and was gathered together and became one, so let Thy Church be gathered together from the ends of the earth into Thy kingdom;<ref>
+
+This part of the verse is found in {{anchor+|viii.iii.ix-p7.1|2=Apostolic Constitutions}}. Schaff properly calls attention to the distinction here made between &#8220;Thy Church&#8221; and &#8220;Thy kingdom.&#8221;  &#160;</ref> for Thine is the glory and the power through Jesus Christ for ever. 5. But let no one eat or drink of your Thanksgiving (Eucharist), but they who have been baptized into the name of the Lord; for concerning this also the Lord hath said, Give not that which is holy to the dogs.<ref>
+
+Matt. vii. 6.  &#160;</ref>  &#160;
+
+
+==Footnotes==
+<references />

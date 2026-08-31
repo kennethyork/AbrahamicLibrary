@@ -1,0 +1,612 @@
+/* The Abrahamic Archive — hand-written CSS, no framework.
+   Organised as: tokens, base, shell, components, reader, utilities. */
+
+/* ---------- tokens ---------- */
+:root {
+  --ink:        #1b1a17;
+  --ink-soft:   #55514a;
+  --ink-faint:  #8b8579;
+  --paper:      #faf8f4;
+  --panel:      #ffffff;
+  --line:       #e2ddd2;
+  --line-soft:  #eeeae1;
+  --accent:     #8a6d3b;
+  --accent-ink: #6b5326;
+  --focus:      #2f6f9f;
+
+  --judaism:      #2f6f9f;
+  --christianity: #8a6d3b;
+  --islam:        #2e7d63;
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+           "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+          Arial, sans-serif;
+
+  --wrap: 74rem;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgb(27 26 23 / .05), 0 8px 24px -16px rgb(27 26 23 / .25);
+}
+
+:root[data-theme="dark"],
+:root:not([data-theme="light"]) {
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink:       #ece7dd;
+    --ink-soft:  #b3ab9d;
+    --ink-faint: #7d7568;
+    --paper:     #14140f;
+    --panel:     #1c1c17;
+    --line:      #33322b;
+    --line-soft: #26251f;
+    --accent:      #c8a464;
+    --accent-ink:  #ddbd85;
+    --focus:       #6fb0e0;
+    --judaism:      #6fa8d6;
+    --christianity: #c8a464;
+    --islam:        #5fbb99;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ink:       #ece7dd;
+  --ink-soft:  #b3ab9d;
+  --ink-faint: #7d7568;
+  --paper:     #14140f;
+  --panel:     #1c1c17;
+  --line:      #33322b;
+  --line-soft: #26251f;
+  --accent:      #c8a464;
+  --accent-ink:  #ddbd85;
+  --focus:       #6fb0e0;
+  --judaism:      #6fa8d6;
+  --christianity: #c8a464;
+  --islam:        #5fbb99;
+  color-scheme: dark;
+}
+
+/* a page about one religion takes that religion's accent throughout */
+[data-religion="judaism"]      { --accent: var(--judaism); --accent-ink: var(--judaism); }
+[data-religion="christianity"] { --accent: var(--christianity); }
+[data-religion="islam"]        { --accent: var(--islam); --accent-ink: var(--islam); }
+
+/* ---------- base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.6 var(--sans);
+  -webkit-text-size-adjust: 100%;
+}
+
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; line-height: 1.2; }
+h1 { font-size: clamp(1.75rem, 1.2rem + 2vw, 2.6rem); margin: 0 0 .4em; }
+h2 { font-size: clamp(1.3rem, 1.1rem + .8vw, 1.7rem); margin: 0 0 .5em; }
+h3 { font-size: 1.12rem; margin: 0 0 .4em; }
+
+a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
+
+img { max-width: 100%; }
+
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: 1.25rem; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; background: var(--panel);
+  padding: .6rem 1rem; z-index: 100; border-radius: 0 0 var(--radius) 0;
+}
+.skip:focus { left: 0; }
+
+.sr {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ---------- shell ---------- */
+.site {
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel) 85%, transparent);
+  backdrop-filter: blur(8px);
+  position: sticky; top: 0; z-index: 20;
+}
+
+.bar {
+  display: flex; align-items: center; gap: 1rem;
+  padding-block: .7rem; flex-wrap: wrap;
+}
+
+.brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: inherit; }
+.brand .mark {
+  width: 1.6rem; height: 1.6rem; border-radius: 5px; flex: none;
+  background: linear-gradient(150deg, var(--judaism), var(--christianity) 52%, var(--islam));
+}
+.brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+.brand-text strong { font-family: var(--serif); font-size: 1.02rem; }
+.brand-text small { color: var(--ink-faint); font-size: .72rem; }
+
+.nav { display: flex; gap: .15rem; flex-wrap: wrap; margin-inline-start: auto; }
+.nav a {
+  padding: .38rem .7rem; border-radius: 999px; text-decoration: none;
+  color: var(--ink-soft); font-size: .9rem; font-weight: 500;
+}
+.nav a:hover { background: var(--line-soft); color: var(--ink); }
+.nav a.r-judaism:hover      { color: var(--judaism); }
+.nav a.r-christianity:hover { color: var(--christianity); }
+.nav a.r-islam:hover        { color: var(--islam); }
+
+.find { display: flex; align-items: center; gap: .3rem; }
+.find input {
+  font: inherit; font-size: .88rem; padding: .42rem .7rem; width: 15rem;
+  max-width: 42vw; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--paper); color: inherit;
+}
+.find button, .theme {
+  display: grid; place-items: center; width: 2.1rem; height: 2.1rem;
+  border: 1px solid var(--line); background: var(--paper); color: var(--ink-soft);
+  border-radius: 999px; cursor: pointer;
+}
+.find button:hover, .theme:hover { color: var(--ink); border-color: var(--ink-faint); }
+
+/* ---------- home ---------- */
+.hero { padding-block: clamp(2.5rem, 6vw, 4.5rem) 1.5rem; }
+.hero p.lead {
+  font-size: clamp(1.02rem, .95rem + .4vw, 1.2rem); color: var(--ink-soft);
+  max-width: 46ch; margin: 0 0 1.4rem;
+}
+.eyebrow {
+  text-transform: uppercase; letter-spacing: .12em; font-size: .72rem;
+  color: var(--ink-faint); font-weight: 600; margin-bottom: .8rem;
+}
+
+.figures { display: flex; flex-wrap: wrap; gap: 2.2rem; margin: 1.8rem 0 0; }
+.figure strong { font-family: var(--serif); font-size: 1.85rem; display: block; line-height: 1; }
+.figure span { color: var(--ink-faint); font-size: .82rem; }
+
+.three { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+
+.faith {
+  display: block; text-decoration: none; color: inherit; background: var(--panel);
+  border: 1px solid var(--line); border-top: 3px solid var(--tint, var(--accent));
+  border-radius: var(--radius); padding: 1.3rem; box-shadow: var(--shadow);
+  transition: transform .12s ease, border-color .12s ease;
+}
+.faith:hover { transform: translateY(-2px); border-color: var(--tint); }
+.faith[data-r="judaism"]      { --tint: var(--judaism); }
+.faith[data-r="christianity"] { --tint: var(--christianity); }
+.faith[data-r="islam"]        { --tint: var(--islam); }
+.faith h2 { color: var(--tint); margin-bottom: .3rem; }
+.faith p { color: var(--ink-soft); font-size: .92rem; margin: 0 0 .9rem; }
+.faith .count { font-size: .78rem; color: var(--ink-faint); }
+
+/* ---------- generic blocks ---------- */
+.panel {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1.2rem;
+}
+
+.section-head {
+  display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap;
+  border-bottom: 1px solid var(--line); padding-bottom: .5rem; margin: 2.4rem 0 1rem;
+}
+.section-head h2 { margin: 0; }
+.section-head p { margin: 0; color: var(--ink-faint); font-size: .87rem; }
+
+.crumbs { font-size: .85rem; color: var(--ink-faint); padding-top: 1.2rem; }
+.crumbs a { color: var(--ink-soft); }
+
+.grid-works { display: grid; gap: .6rem; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+
+.work-card {
+  display: flex; flex-direction: column; gap: .25rem; text-decoration: none;
+  color: inherit; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 8px; padding: .75rem .9rem;
+}
+.work-card:hover { border-color: var(--accent); }
+.work-card b { font-family: var(--serif); font-size: 1.02rem; font-weight: 600; }
+.work-card small { color: var(--ink-faint); font-size: .78rem; }
+
+.tag {
+  display: inline-block; font-size: .68rem; letter-spacing: .04em;
+  text-transform: uppercase; padding: .12rem .45rem; border-radius: 4px;
+  border: 1px solid var(--line); color: var(--ink-faint); background: var(--paper);
+}
+.tag.borrowed { border-style: dashed; }
+
+.muted { color: var(--ink-soft); }
+.small { font-size: .84rem; }
+.center { text-align: center; }
+
+.btn {
+  display: inline-block; padding: .55rem 1.1rem; border-radius: 999px;
+  background: var(--accent); color: var(--paper); text-decoration: none;
+  font-weight: 600; font-size: .92rem; border: 1px solid transparent;
+}
+.btn:hover { filter: brightness(1.06); }
+.btn.alt { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.alt:hover { border-color: var(--accent); color: var(--accent-ink); }
+.actions { display: flex; gap: .6rem; flex-wrap: wrap; }
+
+/* ---------- chapter grid ---------- */
+.chapters { display: flex; flex-wrap: wrap; gap: .32rem; margin: .5rem 0 0; }
+.chapters a {
+  min-width: 2.5rem; text-align: center; padding: .4rem .5rem;
+  border: 1px solid var(--line); border-radius: 6px; text-decoration: none;
+  color: var(--ink-soft); font-variant-numeric: tabular-nums; font-size: .88rem;
+  background: var(--panel);
+}
+.chapters a:hover { border-color: var(--accent); color: var(--accent-ink); }
+.chapters a[aria-current] { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+.chapters.named a { min-width: 0; }
+
+/* ---------- reader ---------- */
+.reader { max-width: 44rem; margin-inline: auto; padding-block: 1.5rem 3rem; }
+
+/* ---------- the margins ----------
+   A study Bible sets a narrow column of text with the notes beside it, and
+   that is the shape here: the translator's notes to the left, the reader's
+   own to the right, each pinned level with the line it belongs to. The text
+   column keeps its measure — a note never makes it wider — so the reading
+   does not change when the margins fill up.
+
+   Below the breakpoint there is no room for either, and both fall back to
+   ordinary blocks under the text. That fallback is the markup's default:
+   the columns are an enhancement, so a browser that does not run the script
+   still shows every note. */
+.reader:has(.reader-body) { max-width: 82rem; }
+.reader-body { display: grid; grid-template-columns: 1fr; gap: 0; }
+.reader-body > .scripture { grid-column: 1; }
+.margin { grid-column: 1; font-family: var(--sans); }
+.margin-h { font-size: .72rem; letter-spacing: .09em; text-transform: uppercase;
+            color: var(--ink-faint); margin: 2rem 0 .6rem; font-weight: 700; }
+.mnote {
+  font-size: .8rem; line-height: 1.5; color: var(--ink-soft);
+  border-left: 2px solid var(--line); padding: .1rem 0 .1rem .7rem;
+  margin-bottom: .8rem;
+}
+.mnote b { color: var(--ink); font-weight: 600; display: block; font-size: .74rem;
+           letter-spacing: .03em; }
+.mnote.mine { border-left-color: var(--accent); }
+.mnote.mine .mnote-text { white-space: pre-wrap; display: block; }
+.mnote a { color: inherit; }
+
+@media (min-width: 68rem) {
+  .reader-body {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 42rem) minmax(0, 1fr);
+    column-gap: 2.2rem;
+    align-items: start;
+  }
+  /* All three share the first row. Naming the row matters: the text is
+     placed in column two, and grid auto-placement will not go back and fill
+     column one behind it — the margins land in a second row underneath the
+     chapter, which is exactly where they were until this line was written. */
+  .reader-body > .scripture { grid-column: 2; grid-row: 1; }
+  .margin-a { grid-column: 1; grid-row: 1; }
+  .margin-b { grid-column: 3; grid-row: 1; }
+  /* Pinned: each note is placed by script at the height of its verse, so the
+     margin itself must be a positioning context of the full column height. */
+  .reader-body.pinned .margin { position: relative; min-height: 1px; }
+  .reader-body.pinned .margin > .margin-h { position: absolute; top: 0; margin: 0; }
+  .reader-body.pinned .mnote {
+    position: absolute; left: 0; right: 0; margin: 0;
+    transition: top .18s ease;
+  }
+  .margin-a .mnote { text-align: right; border-left: 0; border-right: 2px solid var(--line);
+                     padding: .1rem .7rem .1rem 0; }
+  .margin-a .margin-h { text-align: right; }
+  .mnote.is-lit { border-color: var(--accent); color: var(--ink); }
+}
+
+.reader-head { text-align: center; margin-bottom: 2rem; }
+.reader-head h1 { margin-bottom: .15rem; }
+.reader-head .sub { color: var(--ink-faint); font-size: .88rem; }
+
+.scripture {
+  font-family: var(--serif);
+  font-size: var(--read-size, 1.16rem);
+  line-height: var(--read-leading, 1.75);
+}
+.scripture .v { display: block; margin-bottom: .55rem; }
+.scripture.flowing .v { display: inline; margin: 0; }
+.scripture.flowing { text-align: justify; hyphens: auto; }
+
+.vn {
+  font-family: var(--sans); font-size: .68em; font-weight: 700;
+  color: var(--accent); vertical-align: .35em; margin-inline-end: .3em;
+  text-decoration: none; font-variant-numeric: tabular-nums;
+}
+.vn:hover { text-decoration: underline; }
+
+.scripture h3.head {
+  font-size: 1rem; letter-spacing: .02em; color: var(--ink-soft);
+  margin: 1.6rem 0 .7rem; font-style: italic; font-weight: 600;
+}
+.scripture p { margin: 0 0 1rem; }
+
+.chapter-meta {
+  font-family: var(--sans); font-size: .8rem; color: var(--ink-faint);
+  text-align: center; margin-bottom: 1.5rem; font-style: italic;
+}
+
+.notes { margin-top: 2.5rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+.notes h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .1em;
+            color: var(--ink-faint); font-family: var(--sans); }
+.notes ol { margin: 0; padding-inline-start: 1.2rem; }
+.notes li { font-size: .87rem; color: var(--ink-soft); margin-bottom: .4rem; }
+
+mark { background: color-mix(in srgb, var(--accent) 28%, transparent); color: inherit;
+       border-radius: 2px; padding: 0 .1em; }
+
+.v.target { background: color-mix(in srgb, var(--accent) 14%, transparent);
+            border-radius: 4px; box-shadow: 0 0 0 .35rem color-mix(in srgb, var(--accent) 14%, transparent); }
+
+/* reader controls */
+.reader-tools {
+  position: sticky; top: 3.6rem; z-index: 10; display: flex; gap: .4rem;
+  flex-wrap: wrap; align-items: center; justify-content: center;
+  padding: .5rem 0; margin-bottom: 1rem;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(6px); border-bottom: 1px solid var(--line-soft);
+}
+.reader-tools button, .reader-tools select {
+  font: inherit; font-size: .8rem; padding: .3rem .6rem; cursor: pointer;
+  border: 1px solid var(--line); background: var(--panel); color: var(--ink-soft);
+  border-radius: 6px;
+}
+.reader-tools button:hover, .reader-tools select:hover { color: var(--ink); border-color: var(--ink-faint); }
+.reader-tools button[aria-pressed="true"] { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+
+.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2.5rem;
+         border-top: 1px solid var(--line); padding-top: 1rem; }
+.pager a { text-decoration: none; font-size: .92rem; }
+.pager a:hover { text-decoration: underline; }
+
+/* ---------- compare ---------- */
+.compare-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); align-items: start; }
+.compare-col { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.1rem; }
+.compare-col h3 { position: sticky; top: 3.5rem; background: var(--panel); margin: -1rem -1.1rem .6rem; padding: .7rem 1.1rem;
+                  border-bottom: 1px solid var(--line); font-size: .95rem; border-radius: var(--radius) var(--radius) 0 0; }
+.compare-col .scripture { font-size: 1.02rem; }
+
+/* ---------- search ---------- */
+.searchbar { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.searchbar input[type=search] {
+  flex: 1 1 18rem; font: inherit; padding: .6rem .9rem; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--panel); color: inherit;
+}
+.searchbar select { font: inherit; padding: .55rem .6rem; border-radius: 8px;
+                    border: 1px solid var(--line); background: var(--panel); color: inherit; }
+
+.hit { border-bottom: 1px solid var(--line-soft); padding: .9rem 0; }
+.hit a.ref { font-weight: 600; text-decoration: none; font-family: var(--serif); }
+.hit a.ref:hover { text-decoration: underline; }
+.hit .where { font-size: .76rem; color: var(--ink-faint); margin-inline-start: .5rem; }
+.hit p { margin: .3rem 0 0; font-family: var(--serif); color: var(--ink-soft); line-height: 1.6; }
+
+.pagination { display: flex; gap: .5rem; justify-content: center; margin-top: 1.6rem; flex-wrap: wrap; }
+.pagination a, .pagination span {
+  padding: .4rem .8rem; border: 1px solid var(--line); border-radius: 6px;
+  text-decoration: none; font-size: .88rem; color: var(--ink-soft); background: var(--panel);
+}
+.pagination span[aria-current] { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+
+/* ---------- work page ---------- */
+.work-head { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 2fr) minmax(15rem, 1fr);
+             align-items: start; padding-block: 1.5rem; }
+.factbox { font-size: .86rem; }
+.factbox dl { display: grid; grid-template-columns: auto 1fr; gap: .35rem .8rem; margin: 0; }
+.factbox dt { color: var(--ink-faint); }
+.factbox dd { margin: 0; }
+
+/* ---------- footer ---------- */
+.site-foot { border-top: 1px solid var(--line); margin-top: 4rem; padding-block: 2rem 3rem;
+             background: var(--panel); }
+.foot-grid { display: grid; gap: 1.4rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+.foot-grid nav { display: flex; flex-direction: column; gap: .35rem; font-size: .88rem; }
+.foot-grid p { margin: .4rem 0 0; font-size: .86rem; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 46rem) {
+  .bar { gap: .6rem; }
+  .nav { order: 3; width: 100%; margin-inline-start: 0; justify-content: space-between; }
+  .find input { width: 100%; max-width: none; }
+  .find { order: 2; flex: 1; }
+  .work-head { grid-template-columns: 1fr; }
+  .reader-tools { top: 0; }
+}
+
+@media print {
+  .site, .site-foot, .reader-tools, .pager, .skip { display: none !important; }
+  body { background: #fff; color: #000; }
+  .reader { max-width: none; }
+}
+
+/* ---------- the study layer ---------- */
+/* Highlight colours are defined once as tokens and redefined for dark, so a
+   verse marked amber on a bright morning is still legibly amber at night
+   rather than a slab of neon over the text. */
+:root {
+  --hl-amber:  #f6e3ab;
+  --hl-rose:   #f7cfd4;
+  --hl-sage:   #cfe4cd;
+  --hl-sky:    #cadff2;
+  --hl-violet: #ddd2ef;
+  --hl-edge:   rgb(27 26 23 / .18);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --hl-amber:  #5a4713;
+    --hl-rose:   #5c2b31;
+    --hl-sage:   #24462a;
+    --hl-sky:    #1e3c56;
+    --hl-violet: #3a2f56;
+    --hl-edge:   rgb(236 231 221 / .22);
+  }
+}
+:root[data-theme="dark"] {
+  --hl-amber:  #5a4713;
+  --hl-rose:   #5c2b31;
+  --hl-sage:   #24462a;
+  --hl-sky:    #1e3c56;
+  --hl-violet: #3a2f56;
+  --hl-edge:   rgb(236 231 221 / .22);
+}
+
+.scripture .v { border-radius: 4px; transition: background-color .12s ease; }
+.scripture .v.hl-amber  { background: var(--hl-amber); }
+.scripture .v.hl-rose   { background: var(--hl-rose); }
+.scripture .v.hl-sage   { background: var(--hl-sage); }
+.scripture .v.hl-sky    { background: var(--hl-sky); }
+.scripture .v.hl-violet { background: var(--hl-violet); }
+.scripture .v.sel {
+  box-shadow: 0 0 0 2px var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.scripture .v.has-note .vn::after {
+  content: "•"; color: var(--accent-ink); margin-left: .1em; font-size: .9em;
+}
+.scripture .v { cursor: pointer; }
+.scripture .vn { cursor: copy; }
+
+/* The action bar sits at the foot of the window while verses are chosen —
+   near the thumb on a phone, out of the way of the text on a desk. */
+.vbar {
+  position: fixed; inset: auto 0 0 0; z-index: 40;
+  background: var(--panel); border-top: 1px solid var(--line);
+  box-shadow: 0 -8px 24px -18px rgb(27 26 23 / .5);
+  padding: .55rem 0 max(.55rem, env(safe-area-inset-bottom));
+}
+.vbar-in { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.vbar-ref { font-family: var(--sans); font-size: .8rem; font-weight: 600;
+            color: var(--ink-soft); margin-right: .25rem; }
+.vbar button {
+  font: inherit; font-family: var(--sans); font-size: .8rem;
+  padding: .35rem .7rem; border-radius: 999px;
+  border: 1px solid var(--line); background: transparent; color: var(--ink);
+  cursor: pointer;
+}
+.vbar button:hover { border-color: var(--accent); color: var(--accent-ink); }
+.vbar [data-act="close"] { margin-left: auto; padding: .35rem .6rem; }
+
+.hl-swatches { display: inline-flex; gap: .3rem; align-items: center; }
+.sw { width: 1.4rem; height: 1.4rem; padding: 0 !important; border-radius: 50% !important;
+      border: 1px solid var(--hl-edge) !important; }
+.sw-amber  { background: var(--hl-amber) !important; }
+.sw-rose   { background: var(--hl-rose) !important; }
+.sw-sage   { background: var(--hl-sage) !important; }
+.sw-sky    { background: var(--hl-sky) !important; }
+.sw-violet { background: var(--hl-violet) !important; }
+.sw-none   { background: repeating-linear-gradient(45deg,
+             transparent 0 3px, var(--hl-edge) 3px 4px) !important; }
+
+.vbar-note { border-top: 1px solid var(--line-soft); margin-top: .55rem;
+             padding-top: .55rem; }
+.vbar-note textarea {
+  width: 100%; max-width: var(--wrap); margin: 0 auto; display: block;
+  font: inherit; font-family: var(--sans); font-size: .92rem;
+  padding: .6rem .7rem; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--paper); color: var(--ink); resize: vertical;
+}
+.vbar-note-actions { display: flex; gap: .5rem; justify-content: flex-end;
+                     max-width: var(--wrap); margin: .5rem auto 0; }
+
+.mynotes { margin-top: 2.5rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+.mynotes h3 { font-family: var(--sans); font-size: .82rem; letter-spacing: .06em;
+              text-transform: uppercase; color: var(--ink-faint); }
+.mynotes ol { padding-left: 1.1rem; }
+.mynotes li { margin-bottom: .5rem; font-size: .95rem; }
+.mynotes a { font-weight: 600; }
+
+/* room for the bar, so the last verse is never hidden behind it */
+body:has(.vbar:not([hidden])) .reader { padding-bottom: 9rem; }
+
+/* ---------- reading plans ---------- */
+.plan-card .plan-blurb { display: block; color: var(--ink-soft); font-size: .9rem;
+                         margin: .35rem 0 .5rem; }
+.plan-progress { display: block; margin-top: .6rem; }
+.plan-progress .bar { display: block; height: 4px; border-radius: 999px;
+                      background: var(--line); overflow: hidden; }
+.plan-progress .bar > span { display: block; height: 100%; width: 0;
+                             background: var(--accent); transition: width .25s ease; }
+.plan-progress em { display: block; font-style: normal; font-family: var(--sans);
+                    font-size: .74rem; color: var(--ink-faint); margin-top: .3rem; }
+.plan-progress.complete .bar > span { background: var(--islam); }
+.plan-progress.big { max-width: 34rem; margin-top: 1.2rem; }
+.plan-progress.big .bar { height: 6px; }
+.plan-progress.big em { font-size: .82rem; }
+
+.plan-days { list-style: none; padding: 0; margin: 0;
+             border-top: 1px solid var(--line-soft); }
+.plan-day { display: flex; gap: .9rem; align-items: flex-start;
+            padding: 1rem .25rem; border-bottom: 1px solid var(--line-soft); }
+.plan-day.done .plan-body { opacity: .55; }
+.plan-day.done h2 { text-decoration: line-through; text-decoration-thickness: 1px; }
+.plan-tick input { width: 1.15rem; height: 1.15rem; margin-top: .35rem;
+                   accent-color: var(--accent); cursor: pointer; }
+.plan-n { font-family: var(--sans); font-size: .72rem; letter-spacing: .08em;
+          text-transform: uppercase; color: var(--ink-faint); margin: 0 0 .1rem; }
+.plan-day h2 { font-size: 1.05rem; margin: 0 0 .35rem; }
+.plan-links a { display: inline-block; font-family: var(--sans); font-size: .82rem;
+                padding: .2rem .6rem; margin: 0 .3rem .3rem 0; border-radius: 999px;
+                border: 1px solid var(--line); text-decoration: none; color: var(--ink); }
+.plan-links a:hover { border-color: var(--accent); color: var(--accent-ink); }
+
+/* ---------- your reading ---------- */
+.note-card { border: 1px solid var(--line); border-left: 3px solid var(--accent);
+             border-radius: var(--radius); padding: .8rem 1rem; margin-bottom: .8rem;
+             background: var(--panel); }
+.note-card a { font-family: var(--sans); font-size: .8rem; font-weight: 600; }
+.note-card p { margin: .35rem 0; white-space: pre-wrap; }
+.hl-group { font-family: var(--sans); font-size: .82rem; letter-spacing: .05em;
+            text-transform: uppercase; color: var(--ink-faint);
+            margin: 1.4rem 0 .5rem; }
+.hl-row { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .5rem; }
+.hl-chip { font-family: var(--sans); font-size: .78rem; padding: .2rem .6rem;
+           border-radius: 999px; text-decoration: none; color: var(--ink);
+           border: 1px solid var(--hl-edge); }
+.hl-chip.hl-amber  { background: var(--hl-amber); }
+.hl-chip.hl-rose   { background: var(--hl-rose); }
+.hl-chip.hl-sage   { background: var(--hl-sage); }
+.hl-chip.hl-sky    { background: var(--hl-sky); }
+.hl-chip.hl-violet { background: var(--hl-violet); }
+
+/* ---------- the verse for today ---------- */
+.daily {
+  border: 1px solid var(--line); border-left: 4px solid var(--tint, var(--accent));
+  border-radius: var(--radius); background: var(--panel);
+  padding: 1.4rem 1.6rem; box-shadow: var(--shadow);
+}
+.daily[data-r="judaism"]      { --tint: var(--judaism); }
+.daily[data-r="christianity"] { --tint: var(--christianity); }
+.daily[data-r="islam"]        { --tint: var(--islam); }
+.daily blockquote {
+  margin: .4rem 0 .8rem; padding: 0; border: 0;
+  font-family: var(--serif); font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  line-height: 1.5; color: var(--ink);
+}
+.daily-ref { font-family: var(--sans); font-size: .84rem; margin: 0; }
+
+/* A prose paragraph is a study unit too — same colours, same behaviour. */
+.scripture .pb { cursor: pointer; border-radius: 4px; padding: .1rem .25rem;
+                 margin-inline: -.25rem; transition: background-color .12s ease; }
+.scripture .pb.hl-amber  { background: var(--hl-amber); }
+.scripture .pb.hl-rose   { background: var(--hl-rose); }
+.scripture .pb.hl-sage   { background: var(--hl-sage); }
+.scripture .pb.hl-sky    { background: var(--hl-sky); }
+.scripture .pb.hl-violet { background: var(--hl-violet); }
+.scripture .pb.sel { box-shadow: 0 0 0 2px var(--accent);
+                     background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.scripture .pb.has-note::after { content: " •"; color: var(--accent-ink); }
+
+/* The install offer lives in the footer nav and looks like the links beside
+   it, because it is one more thing you can do, not a call to action. */
+.linkish { font: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+           color: var(--accent-ink); text-decoration: underline;
+           text-underline-offset: 2px; text-align: left; }

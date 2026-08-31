@@ -1,0 +1,29 @@
+{{header
+|title=[[../../../../]] Vol. VII, The Teaching of the Twelve Apostles
+|author= |override_author = {{Anon}}
+|translator = |override_translator=[[Author:Philip Schaff|Philip Schaff]] et al.
+|section=Chapter VII
+|previous=[[../Chapter VI|Chapter VI]]
+|next=[[../Chapter VIII|Chapter VIII]]
+|notes=
+}}
+
+'''{{bbsc|Chapter VII.&#8212;Concerning Baptism.}}'''
+
+1. And concerning baptism,<ref>
+
+Verse 1 is found, well-nigh entire, in {{anchor+|viii.iii.vii-p2.1|2=Apostolic Constitutions}} vii. 22, but besides this only a few words of verses 2 and 4. The chapter has naturally called out much discussion as to the mode of baptism. &#160;</ref> thus baptize ye:<ref>
+
+[Elucidation I.]  &#160;</ref> Having first said all these things, baptize into the name of the Father, and of the Son, and of the Holy Spirit,<ref>
+
+Matt. xxviii. 19.  &#160;</ref> in living water.<ref>
+
+Probably running water.  &#160;</ref> 2. But if thou have not living water, baptize into other water; and if thou canst not in cold, in warm. 3. But if thou have not either, pour out water thrice<ref>
+
+The previous verses point to immersion; this permits pouring in certain cases, which indicates that this mode was not unknown. The trine application of the water, and its being poured on the head, are both significant. &#160;</ref> upon the head into the name of Father and Son and Holy Spirit. 4. But before the baptism let the baptizer fast, and the baptized, and whatever others can; but thou shalt order the baptized to fast one or two days before.<ref>
+
+The fasting of the baptized is enjoined in {{anchor+|viii.iii.vii-p7.1|2=Apostolic Constitutions}}, but that of the baptizer (and others) is peculiar to this document. &#160;</ref>  &#160;
+
+
+==Footnotes==
+<references />

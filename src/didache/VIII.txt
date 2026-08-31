@@ -1,0 +1,31 @@
+{{header
+|title=[[../../../../]] Vol. VII, The Teaching of the Twelve Apostles
+|author= |override_author = {{Anon}}
+|translator = |override_translator=[[Author:Philip Schaff|Philip Schaff]] et al.
+|section=Chapter VIII
+|previous=[[../Chapter VII|Chapter VII]]
+|next=[[../Chapter IX|Chapter IX]]
+|notes=
+}}
+
+'''{{bbsc|Chapter VIII.<ref>
+
+The entire chapter is found almost verbatim in {{anchor+|viii.iii.viii-p1.2|2=Apostolic Constitutions}}, vii. 23, 24.  &#160;</ref>&#8212;Concerning Fasting and Prayer (the Lord&#8217;s Prayer).}}'''
+
+1. But let not your fasts be with the hypocrites;<ref>
+
+Comp. Matt. vi. 16.  &#160;</ref> for they fast on the second and fifth day of the week; but do ye fast on the fourth day and the Preparation (Friday).<ref>
+
+The reasons for fasting on Wednesday and Friday are given in {{anchor+|viii.iii.viii-p4.1|2=Apostolic Constitutions}} (the days of betrayal and of burial). Monday and Thursday were the Jewish fast-days. The word &#8220;Preparation&#8221; (day before the Jewish sabbath) occurs in Matt. xxvii. 62, etc., and for some time retained a place in Christian literature. &#160;</ref> 2. Neither pray as the hypocrites; but as the Lord commanded in His Gospel,<ref>
+
+Matt. vi. 5, 9&#8211;13. This form of the Lord&#8217;s Prayer is evidently cited from Matthew, not from Luke. The textual variations are slight. The citation is of importance as proving that the writer used this Gospel, and that the liturgical use of the Lord&#8217;s Prayer was common. &#160;</ref> thus pray: Our Father who art in heaven, hallowed be Thy name. Thy kingdom come. Thy will be done, as in heaven, so on earth. Give us to-day our daily (needful) bread,<ref>
+
+On this phrase, comp. Revised Version, Matt. vi. 11; Luke xi. 3 (text, margin, and American appendix).  &#160;</ref> and forgive us our debt as we also forgive our debtors. And bring us not into temptation, but deliver us from the evil one (or, evil); for Thine is the power and the glory for ever.<ref>
+
+The variation in the form of the doxology confirms the judgment of textual criticism, which omits it in Matt. vi. 13. All early liturgical literature tends in the same direction; comp. {{anchor+|viii.iii.viii-p7.2|2=Apostolic Constitutions}}, vii. 24. &#160;</ref> 3. Thrice in the day thus pray.<ref>
+
+This is in accordance with Jewish usage. Dan. vi. 10; Ps. lv. 17. Comp. Acts iii. 1, x. 9.  &#160;</ref>  &#160;
+
+
+==Footnotes==
+<references />

@@ -1,0 +1,53 @@
+{{header
+|title=[[../../../../]] Vol. VII, The Teaching of the Twelve Apostles
+|author= |override_author = {{Anon}}
+|translator = |override_translator=[[Author:Philip Schaff|Philip Schaff]] et al.
+|section=Chapter IV
+|previous=[[../Chapter III|Chapter III]]
+|next=[[../Chapter V|Chapter V]]
+|notes=
+}}
+
+'''{{bbsc|Chapter IV.<ref>
+
+This chapter, with the exception of a few clauses and words, is found in {{anchor+|viii.iii.iv-p1.1|2=Apostolic Constitutions}}, vii. 9&#8211;17. There are verbal variations, but the order is exact. In Barnabas not so much of the matter is found. There is, however, even greater verbal agreement in many cases, though the order is quite different. Two important clauses (verses 8, 14) find an exact parallel only in Barnabas. One phrase is peculiar to the {{anchor+|viii.iii.iv-p1.4|2=Teaching}}; see ver. 14. &#160;</ref>&#8212;Various Precepts.}}'''
+
+1. My child, him that speaketh to thee the word of God remember night and day; and thou shalt honour him as the Lord;<ref>
+
+Comp. Heb. xiii. 7. In {{anchor+|viii.iii.iv-p3.2|2=Apostolic Constitutions}} there is a transposition of words.  &#160;</ref> for in the place whence lordly rule is uttered,<ref>
+
+Schaff: &#8220;The Lordship is spoken of.&#8221; {{anchor+|viii.iii.iv-p4.2|2=Apostolic Constitutions}}, &#8220;where the doctrine concerning God is,&#8221; etc. &#160;</ref> there is the Lord. 2. And thou shalt seek out day by day the faces of the saints, in order that thou mayest rest upon<ref>
+
+Or, &#8220;acquiesce in&#8221; ({{anchor+|viii.iii.iv-p5.1|2=Apostolic Constitutions}}).  &#160;</ref> their words. 3. Thou shalt not long for<ref>
+
+Some read &#960;&#959;&#953;&#8053;&#963;&#949;&#953;&#962;, &#8220;make,&#8221; as in {{anchor+|viii.iii.iv-p6.2|2=Apostolic Constitutions}} and Barnabas, instead of &#960;&#959;&#952;&#8053;&#963;&#949;&#953;&#962;, Codex.  &#160;</ref> division, but shalt bring those who contend to peace. Thou shalt judge righteously, thou shalt not respect persons in reproving for transgressions. 4. Thou shalt not be undecided whether it shall be or no.<ref>
+
+Comp. Ecclus. i. 28. The verse occurs in Barnabas; and in {{anchor+|viii.iii.iv-p7.3|2=Apostolic Constitutions}} &#8220;in thy prayer&#8221; is inserted, which is probably the sense here. &#160;</ref> 5. Be not a stretcher forth of the hands to receive and a drawer of them back to give.<ref>
+
+Ecclus. iv. 31. The Greek word &#963;&#965;&#963;&#960;&#8182;&#957; occurs here and in Barnabas, but not in {{anchor+|viii.iii.iv-p8.4|2=Apostolic Constitutions}}.  &#160;</ref> 6. If thou hast aught, through thy hands thou shalt give ransom for thy sins.<ref>
+
+{{anchor+|viii.iii.iv-p9.1|2=Apostolic Constitutions}} adds, in explanation, Prov. xvi. 6.  &#160;</ref> 7. Thou shalt not hesitate to give, nor murmur when thou givest; for thou shalt know who is the good repayer of the hire. 8. Thou shalt not turn away from him that is in want, but thou shalt share all things with thy brother, and shalt not say that they are thine own; for if ye are partakers in that which is immortal, how much more in things which are mortal?<ref>
+
+Comp. Acts iv. 32; Rom. xv. 27. The latter half of the verse is in Barnabas (not in {{anchor+|viii.iii.iv-p10.4|2=Apostolic Constitutions}}), but with the substitution of &#8220;incorruptible&#8221; and &#8220;corruptible.&#8221; &#160;</ref> 9. Thou shalt not remove thy hand from thy son or from thy daughter, but from their youth shalt teach them the fear of God.<ref>
+
+Comp. Eph. vi. 4.  &#160;</ref> 10. Thou shalt not enjoin aught in thy bitterness upon thy bondman or maidservant, who hope in the same God, lest ever they shall fear not God who is over both;<ref>
+
+Comp. Eph. vi. 9; Col. iv. 1.  &#160;</ref> for he cometh not to call according to the outward appearance, but unto them whom the Spirit hath prepared. 11. And ye bondmen shall be subject to your<ref>
+
+Codex reads &#8220;our;&#8221; editors correct to &#8220;your. &#8221; &#160;</ref> masters as to a type of God, in modesty and fear.<ref>
+
+Comp. Eph. vi. 5; Col. iii. 22.  &#160;</ref> 12. Thou shalt hate all hypocrisy and everything which is not pleasing to the Lord. 13. Do thou in no wise forsake the commandments of the Lord; but thou shalt keep what thou hast received, neither adding thereto nor taking away therefrom.<ref>
+
+Deut. xii. 32.  &#160;</ref> 14. In the church<ref>
+
+&#8220;In the congregation;&#8221; i.e., assembly of believers. This phrase is omitted in both Barnabas and {{anchor+|viii.iii.iv-p16.2|2=Apostolic Constitutions}}. Comp. Jas. v. 16.  &#160;</ref> thou shalt acknowledge thy transgressions, and thou shalt not come near for thy prayer<ref>
+
+Or, &#8220;to thy place of prayer&#8221; (Schaff).  &#160;</ref> with an evil conscience.<ref>
+
+So Barnabas; but {{anchor+|viii.iii.iv-p18.2|2=Apostolic Constitutions}}, &#8220;in the day of thy bitterness.&#8221; &#160;</ref> This is the way of life.<ref>
+
+So {{anchor+|viii.iii.iv-p19.1|2=Apostolic Constitutions}}; but Barnabas, &#8220;the way of light.&#8221; See note on chap. i. 1.  &#160;</ref>  &#160;
+
+
+==Footnotes==
+<references />

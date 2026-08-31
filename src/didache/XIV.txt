@@ -1,0 +1,31 @@
+{{header
+|title=[[../../../../]] Vol. VII, The Teaching of the Twelve Apostles
+|author= |override_author = {{Anon}}
+|translator = |override_translator=[[Author:Philip Schaff|Philip Schaff]] et al.
+|section=Chapter XIV
+|previous=[[../Chapter XIII|Chapter XIII]]
+|next=[[../Chapter XV|Chapter XV]]
+|notes=
+}}
+
+'''{{bbsc|Chapter XIV.<ref>
+
+Verses 1 and 3 are given substantially in {{anchor+|viii.iii.xiv-p1.1|2=Apostolic Constitutions}}, vii. 30. This chapter would seem to belong more properly before chap. viii.; but the same order of topics is followed in {{anchor+|viii.iii.xiv-p1.2|2=Apostolic Constitutions}},&#8212;a remarkable proof of literary connection. &#160;</ref>&#8212;Christian Assembly on the Lord&#8217;s Day.}}'''
+
+1. But every Lord&#8217;s day<ref>
+
+Comp. Rev. i. 10. Here the full form is &#954;&#945;&#964;&#8048; &#954;&#965;&#961;&#953;&#945;&#954;&#8052;&#957; &#948;&#8050; &#922;&#965;&#961;&#8055;&#959;&#957;. If the early date is allowed, this verse confirms the view that from the first the Lord&#8217;s Day was observed, and that, too, by a eucharistic celebration.  &#160;</ref> do ye gather yourselves together, and break bread, and give thanksgiving after having confessed your transgressions,<ref>
+
+Comp chap. iv. 14. No parallel in {{anchor+|viii.iii.xiv-p4.1|2=Apostolic Constitutions}}. &#160;</ref> that your sacrifice may be pure.<ref>
+
+On this spiritual sense of &#8220;sacrifice,&#8221; comp. Rom. xii. 1; Phil. ii. 17; Heb. xiii. 15; 1 Pet. ii. 5.  &#160;</ref> 2. But let no one that is at variance<ref>
+
+&#8220;That hath the (or, any) dispute&#8221; (&#7936;&#956;&#966;&#953;&#946;&#959;&#955;&#8055;&#945;&#957;); comp. Matt. v. 23, 24.  &#160;</ref> with his fellow come together with you, until they be reconciled, that your sacrifice may not be profaned. 3. For this is that which was spoken by the Lord: In every place and time offer to me a pure sacrifice;<ref>
+
+[See Mal. i. 11. See Iren&#230;us, cap. xvii. 5, vol. i. p. 484.] &#160;</ref> for I am a great King, saith the Lord, and my name is wonderful among the nations.<ref>
+
+Mal. i. 11, 14. Quoted in {{anchor+|viii.iii.xiv-p8.2|2=Apostolic Constitutions}} and by several Ante-Nicene Fathers, with the same reference to the Eucharist.  &#160;</ref>  &#160;
+
+
+==Footnotes==
+<references />

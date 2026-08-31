@@ -1,0 +1,18 @@
+# --- generated -------------------------------------------------------------
+# The corpus is built, not authored: `python -m tools.build_all` makes it from
+# the sources below. Four gigabytes of JSON and a two-and-a-half gigabyte
+# search index have no business in a repository.
+corpus/
+build/
+__pycache__/
+*.pyc
+*.tmp
+
+# --- downloaded ------------------------------------------------------------
+# Three gigabytes of scans and transcriptions, every one of them fetched by a
+# tool in `tools/` and every one of them public domain. Re-run the fetchers.
+sources/
+
+# --- local -----------------------------------------------------------------
+.venv/
+.trash/
