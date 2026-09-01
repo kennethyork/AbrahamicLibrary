@@ -67,6 +67,33 @@ if ($text === null || trim($text) === '') {
     fail(404, 'No such verse.');
 }
 
+/**
+ * Respell the names the phonemizer gets wrong, just before the voice sees
+ * them. Nothing on the page changes — this is only what Piper is handed.
+ *
+ * The table is built by `tools.build_pronounce` from the names that actually
+ * appear in these scriptures, and it exists because espeak-ng reads the `ch`
+ * of a biblical name as the `ch` of *church*: Abimelech, Chaldean, Baruch,
+ * Melchizedek. In this corpus that is a hundred and eighty-four names and
+ * four thousand occurrences of them.
+ */
+function respell(string $text): string
+{
+    static $table = null;
+    if ($table === null) {
+        $raw = @file_get_contents(__DIR__ . '/data/pronounce.json');
+        $d = $raw ? json_decode($raw, true) : null;
+        $table = (is_array($d) && !empty($d['words'])) ? $d['words'] : [];
+    }
+    if (!$table) {
+        return $text;
+    }
+    return preg_replace_callback(
+        '/\b[A-Z][A-Za-z]{2,}\b/',
+        fn($m) => $table[$m[0]] ?? $m[0],
+        $text);
+}
+
 /* Long paragraphs are refused rather than left to run for minutes. */
 if (mb_strlen($text) > 3000) {
     $text = mb_substr($text, 0, 3000);
@@ -94,7 +121,7 @@ if (!is_file($out)) {
         @unlink($wav);
         fail(500, 'Could not start the voice.');
     }
-    fwrite($pipes[0], $text . "\n");
+    fwrite($pipes[0], respell($text) . "\n");
     fclose($pipes[0]);
     stream_get_contents($pipes[1]);
     stream_get_contents($pipes[2]);
