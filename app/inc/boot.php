@@ -390,13 +390,29 @@ function religion(string $id): ?array
  */
 function work_dir(string $workId): ?string
 {
-    if (!preg_match('/^[a-z0-9][a-z0-9\-]{0,79}$/', $workId)) {
+    /* An id is a directory name, so it is checked before it is used as one.
+       The character set is the one the sources actually produce, not the one
+       that would be tidy: archive.org keeps the case and the stops of its
+       own identifiers, and a Google-scanned volume arrives as
+       `ia-in.ernet.dli.2015.44975`. Insisting on lowercase and hyphens made
+       five hundred and forty-five works unreachable — on disk, in the
+       catalog, in the search index, and 404 in the reader.
+
+       Traversal is refused outright rather than filtered: no separators, no
+       `..`, and the path is confirmed to sit under the works directory
+       before anything is read from it. */
+    if (!preg_match('/^[A-Za-z0-9][A-Za-z0-9._-]{0,119}$/', $workId)
+            || str_contains($workId, '..')) {
         return null;
     }
     foreach (['judaism', 'christianity', 'islam'] as $religion) {
         $dir = WORKS_DIR . '/' . $religion . '/' . $workId;
         if (is_file($dir . '/work.json')) {
-            return $dir;
+            $real = realpath($dir);
+            $root = realpath(WORKS_DIR);
+            if ($real && $root && str_starts_with($real, $root . DIRECTORY_SEPARATOR)) {
+                return $real;
+            }
         }
     }
     return null;

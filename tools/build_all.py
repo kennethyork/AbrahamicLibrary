@@ -25,6 +25,7 @@ STAGES = [
     ('plans',     'tools.build_plans',      'the reading plans and the daily verse'),
     ('links',     'tools.build_links',      'the citation index — who quotes what'),
     ('strongs',   'tools.ingest_strongs',   'Strong’s Hebrew and Greek dictionaries'),
+    ('pronounce', 'tools.build_pronounce',  'the pronunciation table for the voice'),
     ('search',    'tools.build_search',     'the full-text index'),
     ('qa',        'tools.qa',               'checking what was built'),
 ]
