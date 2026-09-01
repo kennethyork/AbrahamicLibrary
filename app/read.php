@@ -18,6 +18,12 @@ if (!$meta || !$ch) {
 }
 
 [$prev, $next] = neighbours($meta, $n);
+
+/* If this work is an edition of a book that other works cite, find out which
+   of its verses they cite. A verse nobody quotes gets nothing; one that forty
+   works argue over says so. */
+$book   = canon_book($id);
+$cites  = $book ? citation_counts($book['key'], $n) : [];
 $others  = editions_of($meta);
 $title   = $ch['title'] ?: ('Chapter ' . $n);
 $refBase = $meta['title'] . ' ' . $n;
@@ -93,7 +99,11 @@ require __DIR__ . '/inc/header.php';
         <span class="v" id="<?= e($vid) ?>"
               data-work="<?= e($id) ?>" data-c="<?= e($n) ?>" data-v="<?= e($v['n']) ?>"
               data-ref="<?= e($refBase . ':' . $v['n']) ?>">
-          <a class="vn" href="#<?= e($vid) ?>" data-ref="<?= e($refBase . ':' . $v['n']) ?>"><?= e($v['n']) ?></a><?= e($v['text']) ?>
+          <a class="vn" href="#<?= e($vid) ?>" data-ref="<?= e($refBase . ':' . $v['n']) ?>"><?= e($v['n']) ?></a><?= e($v['text']) ?><?php
+          if (!empty($cites[(string) $v['n']])):
+            $count = $cites[(string) $v['n']]; ?><a class="vcite"
+             href="<?= e(u('cited.php', ['ref' => $book['key'] . '|' . $n . '|' . $v['n']])) ?>"
+             title="<?= $count ?> works in this archive cite this verse">&#8239;<?= $count ?>&#8239;cite<?= $count === 1 ? '' : 's' ?></a><?php endif; ?>
         </span>
       <?php endforeach;
     else:

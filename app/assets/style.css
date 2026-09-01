@@ -610,3 +610,23 @@ body:has(.vbar:not([hidden])) .reader { padding-bottom: 9rem; }
 .linkish { font: inherit; background: none; border: 0; padding: 0; cursor: pointer;
            color: var(--accent-ink); text-decoration: underline;
            text-underline-offset: 2px; text-align: left; }
+
+/* ---------- who cites this verse ---------- */
+.cited-text { font-family: var(--serif); font-size: 1.2rem; line-height: 1.6;
+              border-left: 3px solid var(--accent); padding-left: 1rem;
+              margin: 1rem 0; color: var(--ink); }
+.cite-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+             gap: .4rem; }
+.cite-row { display: flex; align-items: baseline; gap: .6rem; padding: .45rem .7rem;
+            border: 1px solid var(--line); border-radius: var(--radius);
+            text-decoration: none; color: var(--ink); font-size: .9rem; }
+.cite-row:hover { border-color: var(--accent); }
+.cite-n { font-family: var(--sans); font-size: .72rem; font-weight: 700;
+          min-width: 1.6rem; text-align: right; color: var(--accent-ink);
+          font-variant-numeric: tabular-nums; }
+.cite-t { flex: 1; }
+/* the marker on a verse that others quote */
+.vcite { font-family: var(--sans); font-size: .62em; font-weight: 700;
+         vertical-align: .35em; margin-inline-start: .3em; text-decoration: none;
+         color: var(--ink-faint); border-bottom: 1px dotted var(--ink-faint); }
+.vcite:hover { color: var(--accent-ink); border-color: var(--accent); }

@@ -32,6 +32,89 @@ function plans(): array
 }
 
 /**
+ * The citation index — who quotes what.
+ *
+ * Built by `tools.build_links` from the way the sources cite each other in
+ * their own text: `Gen. i. 1`, `Matt. 5:9`, `Sura ii. 255`. A citation is
+ * filed against a canonical reference rather than a translation, so a
+ * reference made in a Catholic commentary finds the same verse in the Jewish
+ * Publication Society's translation of it.
+ *
+ * The index is optional. Where it has not been built the reader loses a
+ * feature and nothing else, so every function here returns empty rather than
+ * failing.
+ */
+function links_db(): ?PDO
+{
+    static $db = false;
+    if ($db === false) {
+        $path = CORPUS_DIR . '/links.sqlite';
+        try {
+            $db = is_readable($path)
+                ? new PDO('sqlite:' . $path, null, null,
+                          [PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT])
+                : null;
+        } catch (Throwable $e) {
+            $db = null;
+        }
+    }
+    return $db;
+}
+
+/** The canonical book a work is an edition of, or null. */
+function canon_book(string $workId): ?array
+{
+    $db = links_db();
+    if (!$db) {
+        return null;
+    }
+    $q = $db->prepare('SELECT key, label FROM book WHERE work = ?');
+    if (!$q || !$q->execute([$workId])) {
+        return null;
+    }
+    $row = $q->fetch(PDO::FETCH_ASSOC);
+    return $row ?: null;
+}
+
+/** How many works cite each verse of one chapter: ['14' => 41, …]. */
+function citation_counts(string $bookKey, string $chapter): array
+{
+    $db = links_db();
+    if (!$db) {
+        return [];
+    }
+    $q = $db->prepare(
+        'SELECT target, works FROM total WHERE target LIKE ?');
+    if (!$q || !$q->execute([$bookKey . '|' . $chapter . '|%'])) {
+        return [];
+    }
+    $out = [];
+    foreach ($q->fetchAll(PDO::FETCH_ASSOC) as $r) {
+        $bits = explode('|', $r['target']);
+        if (count($bits) === 3 && $bits[1] === $chapter) {
+            $out[$bits[2]] = (int) $r['works'];
+        }
+    }
+    return $out;
+}
+
+/** The works that cite one verse, the heaviest citers first. */
+function cited_by(string $target, int $limit = 300): array
+{
+    $db = links_db();
+    if (!$db) {
+        return [];
+    }
+    $q = $db->prepare(
+        'SELECT work, title, religion, section, n FROM cite
+          WHERE target = ? ORDER BY n DESC, title LIMIT ?');
+    if (!$q || !$q->execute([$target, $limit])) {
+        return [];
+    }
+    return $q->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
  * The verse for today. Chosen by the date rather than at random, so that
  * everyone who opens the archive on the same day meets the same verse and a
  * reload does not shuffle it.

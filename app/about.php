@@ -142,7 +142,10 @@ require __DIR__ . '/inc/header.php';
   </div>
 
   <div class="section-head" id="rights"><h2>Sources and rights</h2>
-    <p>Every text here is free to read, copy, print, sell and give away.</p></div>
+    <p>Every text here is free to read, copy, print, sell and give away.
+       That applies to the texts and to these modernized editions of them.
+       It does not apply to the software that serves them, which is the
+       author&rsquo;s and is not open source.</p></div>
 
   <div class="panel">
     <p class="muted small">
