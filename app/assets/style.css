@@ -691,3 +691,10 @@ body:has(.vbar:not([hidden])) .reader { padding-bottom: 9rem; }
 .fn-eg a { color: var(--ink); text-decoration-color: var(--line); }
 .fn-eg a:hover { color: var(--accent-ink); }
 .fn-all { font-size: .76rem; margin-left: .4rem; white-space: nowrap; }
+
+/* the verse being read aloud */
+.scripture .speaking { background: color-mix(in srgb, var(--accent) 16%, transparent);
+                       box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent);
+                       border-radius: 4px; }
+.reader-tools button[data-listen][aria-pressed="true"] { background: var(--accent);
+                       color: var(--paper); border-color: var(--accent); }

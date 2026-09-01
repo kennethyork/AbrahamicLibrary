@@ -94,6 +94,73 @@
     });
   }
 
+  /* ---------- reading it aloud ----------
+     `speak.php` synthesizes one verse at a time with Piper and keeps what it
+     makes, so the first pass through a chapter costs about three seconds a
+     verse and every pass after that costs nothing. Two verses are fetched
+     ahead of the one playing, which is what turns it from a stutter into a
+     reading. */
+  var speaker = null;
+  var speakingAt = -1;
+  var listenBtn = document.querySelector('[data-listen]');
+
+  function speakUrl(el) {
+    return 'speak.php?work=' + encodeURIComponent(el.dataset.work)
+         + '&c=' + encodeURIComponent(el.dataset.c)
+         + '&v=' + encodeURIComponent(el.dataset.v);
+  }
+
+  function stopSpeaking() {
+    if (speaker) { speaker.pause(); speaker.src = ''; speaker = null; }
+    document.querySelectorAll('.speaking').forEach(function (el) {
+      el.classList.remove('speaking');
+    });
+    speakingAt = -1;
+    if (listenBtn) {
+      listenBtn.setAttribute('aria-pressed', 'false');
+      listenBtn.textContent = 'Listen';
+    }
+  }
+
+  function speakFrom(i) {
+    var all = verses();
+    if (i >= all.length) { stopSpeaking(); return; }
+    document.querySelectorAll('.speaking').forEach(function (el) {
+      el.classList.remove('speaking');
+    });
+    var el = all[i];
+    speakingAt = i;
+    el.classList.add('speaking');
+    /* Only chase the text when it has left the window; scrolling under a
+       reader who is looking somewhere else is rude. */
+    var box = el.getBoundingClientRect();
+    if (box.top < 80 || box.bottom > window.innerHeight - 120) {
+      el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+
+    speaker = speaker || new Audio();
+    speaker.src = speakUrl(el);
+    speaker.play().catch(function () { stopSpeaking(); });
+    speaker.onended = function () { speakFrom(i + 1); };
+    speaker.onerror = function () { speakFrom(i + 1); };
+
+    /* Warm the next two so the voice does not stop between verses. */
+    for (var k = 1; k <= 2; k++) {
+      if (all[i + k]) { fetch(speakUrl(all[i + k])).catch(function () {}); }
+    }
+  }
+
+  if (listenBtn) {
+    listenBtn.addEventListener('click', function () {
+      if (speaker) { stopSpeaking(); return; }
+      var all = verses();
+      var from = chosen.length ? all.indexOf(chosen[0]) : 0;
+      listenBtn.setAttribute('aria-pressed', 'true');
+      listenBtn.textContent = 'Stop';
+      speakFrom(from < 0 ? 0 : from);
+    });
+  }
+
   /* ---------- choosing verses ---------- */
   var bar     = document.querySelector('[data-vbar]');
   var refOut  = document.querySelector('[data-vbar-ref]');
@@ -392,7 +459,7 @@
   }
 
   document.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Escape' && chosen.length) clearChoice();
+    if (ev.key === 'Escape') { if (speaker) stopSpeaking(); if (chosen.length) clearChoice(); }
   });
 
   paintVerses();

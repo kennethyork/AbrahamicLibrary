@@ -65,6 +65,7 @@ require __DIR__ . '/inc/header.php';
              the text as it was printed — most of the World English Bible was
              already modern and has nothing to show. */ ?>
     <button type="button" data-as-printed aria-pressed="false" hidden>As printed</button>
+    <button type="button" data-listen aria-pressed="false">Listen</button>
     <button type="button" data-bookmark="<?= e($meta['title'] . ' ' . $n) ?>">Bookmark</button>
     <?php if ($others): ?>
       <a class="btn alt" style="padding:.3rem .7rem;font-size:.8rem"

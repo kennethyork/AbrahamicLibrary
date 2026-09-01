@@ -16,3 +16,8 @@ sources/
 # --- local -----------------------------------------------------------------
 .venv/
 .trash/
+
+# --- the voice ------------------------------------------------------------
+# A 114 MB neural model. Public domain, and re-downloadable: see app/speak.php.
+voices/
+corpus/audio/

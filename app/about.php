@@ -142,6 +142,14 @@ require __DIR__ . '/inc/header.php';
   </div>
 
   <div class="section-head" id="rights"><h2>Sources and rights</h2>
+    <p><b>The voice.</b> Chapters can be read aloud by Piper, a neural
+       text-to-speech engine that runs on the machine serving the page &mdash;
+       no account, no key, nothing sent anywhere. The voice is
+       <em>ljspeech</em>, whose model card says <em>License: public domain</em>.
+       Three of the five best English voices Piper offers are licensed
+       CC&nbsp;BY-NC, and a library whose whole point is that it can be sold
+       cannot use a voice that cannot be.</p>
+
     <p>Every text here is free to read, copy, print, sell and give away.
        That applies to the texts and to these modernized editions of them.
        It does not apply to the software that serves them, which is the
