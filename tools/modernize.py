@@ -423,6 +423,7 @@ def modernize(s, tier='safe', report=None):
     """Bring a run of source text to present-day American English."""
     if not s or tier == 'none':
         return s
+    s = untype(s)                          # `haſt` is `hast` before anything
     if tier not in TIERS:
         raise ValueError(f'unknown tier {tier!r}; expected one of {TIERS}')
     s = _fix_text(s)                       # vocabulary and constructions
@@ -436,6 +437,31 @@ def modernize(s, tier='safe', report=None):
         s = generative(s, report)          # then the long tail
         s = _restore_art(s, kept)
     return s
+
+
+# --- the long s, and the ligatures around it ------------------------------
+#
+# Eighteenth-century printing sets a non-final `s` as `ſ`, and nothing in
+# these tables can see it: `haſt` is not `hast`, so it is not `have`, and
+# `ſaith` is not `saith`, so it is not `says`. The 1717 Sentences of Ali and
+# the 1810 Mishcat-ul-Masabih came in with twelve thousand of them between
+# them and went straight through the modernizer untouched.
+#
+# The substitution is unambiguous — a long s is an s, always, and the
+# ligatures are the letters they join — so it is done before any rule runs
+# rather than being added to the tables word by word.
+OLD_TYPE = {
+    'ſ': 's', 'ﬀ': 'ff', 'ﬁ': 'fi', 'ﬂ': 'fl', 'ﬃ': 'ffi', 'ﬄ': 'ffl',
+    'ﬅ': 'st', 'ﬆ': 'st', 'Ꞅ': 'S',
+}
+_OLD_TYPE_RE = re.compile('[' + ''.join(OLD_TYPE) + ']')
+
+
+def untype(s):
+    """Modern letters for the ones the old presses used."""
+    if not s:
+        return s
+    return _OLD_TYPE_RE.sub(lambda m: OLD_TYPE[m.group(0)], s)
 
 
 def pair(s, tier='safe', report=None):
