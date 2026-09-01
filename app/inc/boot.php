@@ -31,6 +31,191 @@ function plans(): array
     return $cache;
 }
 
+/* Words too ordinary to be worth a footnote, however many Hebrew words hide
+   behind them. Kept short on purpose: `light`, `word` and `fear` all belong
+   in a footnote, and the point of the feature is that they do. */
+const FOOTNOTE_SKIP = [
+    'that', 'this', 'they', 'them', 'their', 'there', 'then', 'when', 'were',
+    'have', 'hath', 'with', 'from', 'unto', 'shall', 'which', 'said', 'come',
+    'came', 'went', 'made', 'make', 'thou', 'thee', 'your', 'you', 'his',
+    'her', 'him', 'and', 'the', 'for', 'but', 'not', 'all', 'was', 'are',
+    'one', 'two', 'out', 'let', 'set', 'put', 'took', 'take', 'give', 'given',
+    'also', 'after', 'before', 'because', 'these', 'those', 'upon', 'into',
+    'thing', 'things', 'man', 'men', 'people', 'day', 'days', 'time',
+    /* A second class, learned by running it over Genesis 1: words that come
+       back with a hundred originals behind them and tell a reader nothing,
+       because the many originals are an artefact of how often the word is
+       needed rather than of any depth in it. */
+    'place', 'together', 'great', 'over', 'very', 'own', 'will', 'more',
+    'every', 'other', 'same', 'such', 'some', 'like', 'well', 'much',
+    'many', 'good', 'against', 'about', 'down', 'again', 'away', 'back',
+    'through', 'under', 'between', 'among', 'where', 'while', 'until',
+    'himself', 'themselves', 'whosoever', 'whatsoever', 'therefore',
+    'behold', 'saying', 'called', 'know', 'knew', 'become', 'came',
+];
+
+/**
+ * Which words in a chapter are hiding more than one word underneath.
+ *
+ * Without a Strong's-tagged text there is no telling *which* Hebrew word a
+ * given `light` translates. What can be said, and is worth saying, is that
+ * the King James translators used the word `light` for thirty-four different
+ * ones — so the reader knows there is a question here even though this
+ * archive cannot answer it for this verse. The footnote says exactly that
+ * much and no more.
+ *
+ * -> ['light' => ['n' => 34, 'top' => [entry, …]], …], the richest first.
+ */
+function footnote_words(string $text, int $limit = 10, int $least = 4): array
+{
+    $db = strongs_db();
+    if (!$db) {
+        return [];
+    }
+    preg_match_all('/[A-Za-z]{3,}/', $text, $m);
+    $seen = array_unique(array_map('strtolower', $m[0]));
+    $seen = array_diff($seen, FOOTNOTE_SKIP);
+    if (!$seen) {
+        return [];
+    }
+
+    /* One query for the whole chapter rather than one per word. */
+    $in = implode(',', array_fill(0, count($seen), '?'));
+    /* The two numbers are cast and interpolated rather than bound: PDO's
+       SQLite driver binds every parameter as text, and `HAVING n >= '4'`
+       compares an integer against a string and matches nothing at all. */
+    $least = max(2, (int) $least);
+    $limit = max(1, min(40, (int) $limit));
+    $q = $db->prepare(
+        "SELECT x.word, COUNT(DISTINCT x.id) AS n
+           FROM english x WHERE x.word IN ($in)
+          GROUP BY x.word HAVING n >= $least
+          ORDER BY n DESC, x.word LIMIT $limit");
+    if (!$q || !$q->execute(array_values($seen))) {
+        return [];
+    }
+
+    $out = [];
+    foreach ($q->fetchAll(PDO::FETCH_ASSOC) as $row) {
+        $e = $db->prepare(
+            /* Two signals, in order. First: does the entry lead with this
+               sense? Strong lists renderings commonest-first, so a word in
+               the first three is what the entry mostly means. Then, among
+               those, how many other entries are derived from it — the root
+               of a family is the word a reader wants, and the one that
+               position alone will never surface. */
+            'SELECT e.id, e.lang, e.word, e.sense FROM english x
+               JOIN entry e ON e.id = x.id
+              WHERE x.word = ?
+              ORDER BY (x.rank <= 2) DESC, e.refs DESC, x.rank LIMIT 4');
+        $top = ($e && $e->execute([$row['word']])) ? $e->fetchAll(PDO::FETCH_ASSOC) : [];
+        if ($top) {
+            $out[$row['word']] = ['n' => (int) $row['n'], 'top' => $top];
+        }
+    }
+    return $out;
+}
+
+/**
+ * Put the footnote markers into a run of already-escaped text.
+ *
+ * The text is escaped before this sees it, and the footnoted words are plain
+ * letters with no entity to collide with, so a word-boundary substitution on
+ * the escaped string is safe. `$used` carries across the whole chapter: a
+ * word is marked the first time it appears and left alone after that, which
+ * is what a footnote in a book does.
+ */
+function mark_footnotes(string $escaped, array $words, array &$used): string
+{
+    if (!$words) {
+        return $escaped;
+    }
+    /* Numbered in the order they are met on the page, not in the order the
+       lexicon happened to return them, so a reader following the numbers
+       down a verse finds them going up. */
+    $pending = [];
+    foreach ($words as $word => $_d) {
+        if (isset($used[$word])) {
+            continue;
+        }
+        $at = stripos($escaped, $word);
+        if ($at !== false) {
+            $pending[$word] = $at;
+        }
+    }
+    asort($pending);
+
+    foreach ($pending as $word => $_at) {
+        $n = count($used) + 1;
+        $out = preg_replace_callback(
+            '/\b(' . preg_quote($word, '/') . ')\b/i',
+            function ($m) use ($word, $n) {
+                return '<span class="fnw">' . $m[1] . '</span>'
+                     . '<a class="fnm" id="fnr-' . $word . '" href="#fn-' . $word
+                     . '" title="Behind this word in the Hebrew and Greek">'
+                     . $n . '</a>';
+            },
+            $escaped, 1, $count);
+        if ($count) {
+            $used[$word] = $n;
+            $escaped = $out;
+        }
+    }
+    return $escaped;
+}
+
+/** Strong's dictionaries, if `tools.ingest_strongs` has been run. */
+function strongs_db(): ?PDO
+{
+    static $db = false;
+    if ($db === false) {
+        $path = CORPUS_DIR . '/strongs.sqlite';
+        try {
+            $db = is_readable($path)
+                ? new PDO('sqlite:' . $path, null, null,
+                          [PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT])
+                : null;
+        } catch (Throwable $e) {
+            $db = null;
+        }
+    }
+    return $db;
+}
+
+function strongs_entry(string $id): array
+{
+    $db = strongs_db();
+    if (!$db) {
+        return [];
+    }
+    $q = $db->prepare('SELECT * FROM entry WHERE id = ?');
+    return ($q && $q->execute([$id])) ? $q->fetchAll(PDO::FETCH_ASSOC) : [];
+}
+
+/** Every Hebrew and Greek word the King James rendered by one English word. */
+function strongs_by_english(string $word): array
+{
+    $db = strongs_db();
+    if (!$db) {
+        return [];
+    }
+    $q = $db->prepare(
+        'SELECT e.* FROM english x JOIN entry e ON e.id = x.id
+          WHERE x.word = ? ORDER BY e.lang DESC, e.num LIMIT 40');
+    return ($q && $q->execute([$word])) ? $q->fetchAll(PDO::FETCH_ASSOC) : [];
+}
+
+function strongs_by_word(string $word): array
+{
+    $db = strongs_db();
+    if (!$db) {
+        return [];
+    }
+    $q = $db->prepare(
+        'SELECT * FROM entry WHERE word = ? OR word LIKE ? ORDER BY num LIMIT 40');
+    return ($q && $q->execute([$word, $word . '%'])) ? $q->fetchAll(PDO::FETCH_ASSOC) : [];
+}
+
 /**
  * The citation index — who quotes what.
  *
@@ -140,6 +325,14 @@ function plan(string $id): ?array
     }
     return null;
 }
+
+/* FTS5 marks a match with whatever two strings it is given. Real tags cannot
+   be used: the snippet is escaped as ordinary text afterwards, and an escaped
+   <mark> is just an angle bracket on the page. So two control characters
+   stand in, survive escaping untouched, and become the tags at the very end.
+   They cannot occur in the corpus, which is what makes the swap safe. */
+const HI = "\x02";
+const HO = "\x03";
 
 const HIGHLIGHTS = [
     'amber'  => 'Amber',

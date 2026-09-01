@@ -146,10 +146,10 @@ def build_side_by_side(report):
                 text = tidy(s['verses'][vn].get(code, ''))
                 if not text:
                     continue
+                said, src = modernize.pair(text, 'full', report)
                 ch.verses.append({
-                    'n': str(vn),
-                    'text': modernize.modernize(text, 'full', report),
-                    'notes': [],
+                    'n': str(vn), 'text': said, 'notes': [],
+                    **({'src': src} if src else {}),
                 })
             if s['place']:
                 ch.blocks.append({'k': 'meta', 't': f'Revealed at {s["place"]}'})
@@ -303,8 +303,9 @@ def build_sale(report):
         if s.get('place'):
             ch.blocks.append({'k': 'meta', 't': s['place']})
         for i, text in enumerate(s['verses'], 1):
-            text = modernize.modernize(strip_markers(text), 'full', report)
-            ch.verses.append({'n': str(i), 'text': text, 'notes': []})
+            said, src = modernize.pair(strip_markers(text), 'full', report)
+            ch.verses.append({'n': str(i), 'text': said, 'notes': [],
+                              **({'src': src} if src else {})})
         if ch.verses:
             w.add(ch)
     m = w.save()

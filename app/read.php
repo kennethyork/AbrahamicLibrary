@@ -24,6 +24,17 @@ if (!$meta || !$ch) {
    works argue over says so. */
 $book   = canon_book($id);
 $cites  = $book ? citation_counts($book['key'], $n) : [];
+
+/* Which words in this chapter hide more than one word underneath. Only for
+   scripture: a nineteenth-century church history is not a translation of
+   anything, and footnoting its English against Strong's would be nonsense. */
+$footnotes = [];
+if (!empty($ch['verses']) && in_array($meta['section'], [
+        'old-testament', 'new-testament', 'deuterocanon', 'apocrypha',
+        'pseudepigrapha', 'torah', 'neviim', 'ketuvim', 'restoration'], true)) {
+    $footnotes = footnote_words(implode(' ', array_column($ch['verses'], 'text')));
+}
+$fnUsed = [];
 $others  = editions_of($meta);
 $title   = $ch['title'] ?: ('Chapter ' . $n);
 $refBase = $meta['title'] . ' ' . $n;
@@ -50,6 +61,10 @@ require __DIR__ . '/inc/header.php';
     <button type="button" data-size="-1" aria-label="Smaller text">A&minus;</button>
     <button type="button" data-size="1" aria-label="Larger text">A+</button>
     <button type="button" data-flowing aria-pressed="false">Flowing</button>
+    <?php /* Revealed by the script only where the chapter actually carries
+             the text as it was printed — most of the World English Bible was
+             already modern and has nothing to show. */ ?>
+    <button type="button" data-as-printed aria-pressed="false" hidden>As printed</button>
     <button type="button" data-bookmark="<?= e($meta['title'] . ' ' . $n) ?>">Bookmark</button>
     <?php if ($others): ?>
       <a class="btn alt" style="padding:.3rem .7rem;font-size:.8rem"
@@ -98,8 +113,9 @@ require __DIR__ . '/inc/header.php';
             <?php endforeach; ?>
         <span class="v" id="<?= e($vid) ?>"
               data-work="<?= e($id) ?>" data-c="<?= e($n) ?>" data-v="<?= e($v['n']) ?>"
-              data-ref="<?= e($refBase . ':' . $v['n']) ?>">
-          <a class="vn" href="#<?= e($vid) ?>" data-ref="<?= e($refBase . ':' . $v['n']) ?>"><?= e($v['n']) ?></a><?= e($v['text']) ?><?php
+              data-ref="<?= e($refBase . ':' . $v['n']) ?>"
+              <?php if (!empty($v['src'])): ?>data-src="<?= e($v['src']) ?>"<?php endif; ?>>
+          <a class="vn" href="#<?= e($vid) ?>" data-ref="<?= e($refBase . ':' . $v['n']) ?>"><?= e($v['n']) ?></a><span class="t"><?= mark_footnotes(e($v['text']), $footnotes, $fnUsed) ?></span><?php
           if (!empty($cites[(string) $v['n']])):
             $count = $cites[(string) $v['n']]; ?><a class="vcite"
              href="<?= e(u('cited.php', ['ref' => $book['key'] . '|' . $n . '|' . $v['n']])) ?>"
@@ -119,7 +135,8 @@ require __DIR__ . '/inc/header.php';
                        — the same promise the verse numbers make. */ ?>
               <p class="pb" id="p<?= $pn ?>"
                  data-work="<?= e($id) ?>" data-c="<?= e($n) ?>" data-v="p<?= $pn ?>"
-                 data-ref="<?= e($refBase) ?> &para;<?= $pn ?>"><?= e($b['t']) ?></p>
+                 <?php if (!empty($b['s'])): ?>data-src="<?= e($b['s']) ?>"<?php endif; ?>
+                 data-ref="<?= e($refBase) ?> &para;<?= $pn ?>"><span class="t"><?= e($b['t']) ?></span></p>
               <?php $pn++;
             endif;
         endforeach;
@@ -148,6 +165,33 @@ require __DIR__ . '/inc/header.php';
     <h3 class="margin-h">Your notes</h3>
   </aside>
   </div>
+
+  <?php if ($fnUsed): ?>
+    <section class="footnotes">
+      <h3>Behind the English</h3>
+      <p class="fn-lead">
+        Words in this chapter that the King James translators used for more
+        than one Hebrew or Greek word. The count is the finding; the examples
+        under it are examples, because without a word-by-word tagging of the
+        text there is no telling which one stands here.
+      </p>
+      <ol class="fn-list">
+        <?php foreach ($fnUsed as $word => $marker): $d = $footnotes[$word]; ?>
+          <li id="fn-<?= e($word) ?>" value="<?= (int) $marker ?>">
+            <a class="fn-back" href="#fnr-<?= e($word) ?>" title="Back to the text">&#8617;</a>
+            <b><?= e($word) ?></b>
+            <span class="fn-n"><?= (int) $d['n'] ?> words behind it</span>
+            <span class="fn-eg">
+              <?php foreach ($d['top'] as $i => $x): ?>
+                <?= $i ? ' &middot; ' : '' ?><a href="<?= e(u('strongs.php', ['q' => $x['id']])) ?>"><?= e($x['word']) ?></a>
+              <?php endforeach; ?>
+            </span>
+            <a class="fn-all" href="<?= e(u('strongs.php', ['q' => $word])) ?>">all <?= (int) $d['n'] ?> &rarr;</a>
+          </li>
+        <?php endforeach; ?>
+      </ol>
+    </section>
+  <?php endif; ?>
 
   <nav class="pager">
     <?php if ($prev !== null): ?>

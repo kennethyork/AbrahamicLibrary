@@ -264,12 +264,13 @@ def douay(report):
         for chapter_n, chunk in split_dr_chapters(body):
             ch = Chapter(chapter_n, f'Chapter {chapter_n}')
             for vn, text, notes in chunk:
+                said, src = modernize.pair(text, 'full', report)
                 ch.verses.append({
-                    'n': vn,
-                    'text': modernize.modernize(text, 'full', report),
+                    'n': vn, 'text': said,
                     'notes': [{'ref': f'{chapter_n}:{vn}',
                                'text': modernize.modernize(n, 'full', report)}
                               for n in notes],
+                    **({'src': src} if src else {}),
                 })
             if ch.verses:
                 w.add(ch)
@@ -417,8 +418,11 @@ def one_book(vid):
         # a full-tier book.
         ch = Chapter(i, modernize.modernize(heading, tier) or f'Part {i}')
         for p in paras:
-            ch.blocks.append({'k': 'p',
-                              't': modernize.modernize(p, tier, report)})
+            text, src = modernize.pair(p, tier, report)
+            block = {'k': 'p', 't': text}
+            if src:
+                block['s'] = src          # the paragraph as it was printed
+            ch.blocks.append(block)
         w.add(ch)
 
     if not w.chapters:

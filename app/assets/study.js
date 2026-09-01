@@ -62,6 +62,38 @@
 
   if (!reader || reader.dataset.verses !== '1') { paintLists(); return; }
 
+  /* ---------- the text as it was printed ----------
+     The archive's whole claim is that it changed how a text says a thing and
+     not what it says. That is only checkable if the words that were there are
+     still there, so the ingesters keep both and this puts the old one back on
+     the page. Only verses that actually changed carry a `data-src`; the rest
+     were already modern and have nothing to show. */
+  var printed = false;
+  var asPrinted = document.querySelector('[data-as-printed]');
+  var changed = document.querySelectorAll('.scripture [data-src]');
+
+  if (asPrinted && changed.length) {
+    asPrinted.hidden = false;
+    asPrinted.title = changed.length + ' of these were modernized';
+    asPrinted.addEventListener('click', function () {
+      printed = !printed;
+      changed.forEach(function (el) {
+        var slot = el.querySelector('.t');
+        if (!slot) return;
+        if (printed) {
+          if (!el.dataset.mod) el.dataset.mod = slot.textContent;
+          slot.textContent = el.dataset.src;
+        } else if (el.dataset.mod) {
+          slot.textContent = el.dataset.mod;
+        }
+      });
+      asPrinted.setAttribute('aria-pressed', printed ? 'true' : 'false');
+      asPrinted.textContent = printed ? 'Modernized' : 'As printed';
+      document.querySelector('.scripture').classList.toggle('as-printed', printed);
+      relayout();
+    });
+  }
+
   /* ---------- choosing verses ---------- */
   var bar     = document.querySelector('[data-vbar]');
   var refOut  = document.querySelector('[data-vbar-ref]');
@@ -274,8 +306,8 @@
 
   function chosenText() {
     return chosen.map(function (el) {
-      var body = el.classList.contains('pb')
-        ? el.textContent.trim()
+      var slot = el.querySelector('.t');
+      var body = slot ? slot.textContent.trim()
         : el.textContent.replace(/^\s*\S+\s*/, '').trim();
       return (el.classList.contains('pb') ? '' : el.dataset.v + ' ') + body;
     }).join(' ');

@@ -630,3 +630,64 @@ body:has(.vbar:not([hidden])) .reader { padding-bottom: 9rem; }
          vertical-align: .35em; margin-inline-start: .3em; text-decoration: none;
          color: var(--ink-faint); border-bottom: 1px dotted var(--ink-faint); }
 .vcite:hover { color: var(--accent-ink); border-color: var(--accent); }
+
+/* ---------- concordance ---------- */
+.conc-bars { display: grid; gap: .3rem; }
+.conc-bar { display: grid; grid-template-columns: minmax(0, 22rem) 1fr 4rem;
+            gap: .8rem; align-items: center; padding: .35rem .5rem;
+            border-radius: 6px; text-decoration: none; color: var(--ink);
+            font-size: .9rem; }
+.conc-bar:hover { background: var(--line-soft); }
+.conc-t { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.conc-track { height: 8px; border-radius: 999px; background: var(--line-soft); overflow: hidden; }
+.conc-track > span { display: block; height: 100%; background: var(--tint, var(--accent)); }
+.conc-bar[data-r="judaism"]      { --tint: var(--judaism); }
+.conc-bar[data-r="christianity"] { --tint: var(--christianity); }
+.conc-bar[data-r="islam"]        { --tint: var(--islam); }
+.conc-n { font-family: var(--sans); font-size: .78rem; text-align: right;
+          color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.figures .figure[data-r="judaism"] strong      { color: var(--judaism); }
+.figures .figure[data-r="christianity"] strong { color: var(--christianity); }
+.figures .figure[data-r="islam"] strong        { color: var(--islam); }
+
+/* ---------- Strong's ---------- */
+.lex { border: 1px solid var(--line); border-left: 3px solid var(--tint, var(--accent));
+       border-radius: var(--radius); padding: .9rem 1.1rem; margin-bottom: .8rem;
+       background: var(--panel); }
+.lex[data-r="judaism"]      { --tint: var(--judaism); }
+.lex[data-r="christianity"] { --tint: var(--christianity); }
+.lex-head { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap;
+            margin: 0 0 .4rem; font-family: var(--sans); }
+.lex-id { font-size: .74rem; font-weight: 700; letter-spacing: .04em;
+          padding: .1rem .45rem; border: 1px solid var(--line); border-radius: 999px;
+          text-decoration: none; color: var(--ink-soft); }
+.lex-word { font-size: 1.1rem; font-family: var(--serif); }
+.lex-pron { color: var(--ink-faint); font-size: .85rem; }
+.lex-sense { margin: 0 0 .4rem; }
+.lex-kjv { margin: 0 0 .4rem; font-size: .88rem; color: var(--ink-soft); }
+.lex-kjv span { font-family: var(--sans); font-size: .7rem; text-transform: uppercase;
+                letter-spacing: .07em; color: var(--ink-faint); margin-right: .4rem; }
+.lex-links { margin: 0; font-family: var(--sans); font-size: .8rem; }
+
+/* ---------- footnotes: behind the English ---------- */
+.fnw { border-bottom: 1px dotted var(--ink-faint); }
+.fnm { font-family: var(--sans); font-size: .58em; font-weight: 700;
+       vertical-align: .5em; margin-inline-start: .1em; text-decoration: none;
+       color: var(--accent-ink); }
+.fnm:hover { text-decoration: underline; }
+.scripture .v:target .fnm, .fnm:focus { outline: 2px solid var(--accent); }
+
+.footnotes { margin-top: 2.5rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+.footnotes h3 { font-family: var(--sans); font-size: .82rem; letter-spacing: .06em;
+                text-transform: uppercase; color: var(--ink-faint); margin-bottom: .4rem; }
+.fn-lead { font-size: .85rem; color: var(--ink-soft); max-width: 44rem;
+           margin: 0 0 1rem; }
+.fn-list { margin: 0; padding-left: 1.4rem; font-family: var(--sans); font-size: .88rem; }
+.fn-list li { margin-bottom: .5rem; }
+.fn-list b { font-family: var(--serif); font-size: 1.02rem; margin-right: .4rem; }
+.fn-back { text-decoration: none; color: var(--ink-faint); margin-right: .3rem; }
+.fn-back:hover { color: var(--accent-ink); }
+.fn-n { color: var(--ink-faint); font-size: .78rem; margin-right: .5rem; }
+.fn-eg a { color: var(--ink); text-decoration-color: var(--line); }
+.fn-eg a:hover { color: var(--accent-ink); }
+.fn-all { font-size: .76rem; margin-left: .4rem; white-space: nowrap; }

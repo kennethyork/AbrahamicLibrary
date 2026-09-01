@@ -23,6 +23,8 @@ STAGES = [
     ('prune',     'tools.prune',            'removing fiction, non-English and empty works'),
     ('catalog',   'tools.build_catalog',    'the browsable catalog'),
     ('plans',     'tools.build_plans',      'the reading plans and the daily verse'),
+    ('links',     'tools.build_links',      'the citation index — who quotes what'),
+    ('strongs',   'tools.ingest_strongs',   'Strong’s Hebrew and Greek dictionaries'),
     ('search',    'tools.build_search',     'the full-text index'),
     ('qa',        'tools.qa',               'checking what was built'),
 ]

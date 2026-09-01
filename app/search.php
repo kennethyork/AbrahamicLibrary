@@ -11,8 +11,7 @@ $perPage  = 25;
 /* The highlight is marked with control characters, not with tags. The
    snippet is escaped as ordinary text afterwards and only then are these
    turned into <mark>, so a `<` in a source text cannot become markup. */
-const HI = "\x02";
-const HO = "\x03";
+
 
 $db      = search_db();
 $hits    = [];

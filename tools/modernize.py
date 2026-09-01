@@ -438,6 +438,21 @@ def modernize(s, tier='safe', report=None):
     return s
 
 
+def pair(s, tier='safe', report=None):
+    """-> (modernized, as printed) — the second only where they differ.
+
+    The archive's most questionable claim is that it has not changed what a
+    text says, only how it says it. A reader has no way to check that unless
+    the words that were there are still there, so the ingesters keep both.
+
+    `None` is returned for the source where nothing changed, which is most of
+    the World English Bible and none of Sale's Koran. That keeps the corpus
+    from doubling for the sake of sentences that were already modern.
+    """
+    out = modernize(s, tier, report)
+    return out, (None if out == s else s)
+
+
 def audit(s):
     """Archaic forms still standing in a finished text."""
     found = Counter()

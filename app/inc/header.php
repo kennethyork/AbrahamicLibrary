@@ -39,6 +39,8 @@ $bodyClass   = $bodyClass   ?? '';
       <a href="<?= u('library.php', ['religion' => 'christianity']) ?>" class="r-christianity">Christianity</a>
       <a href="<?= u('library.php', ['religion' => 'islam']) ?>" class="r-islam">Islam</a>
       <a href="library.php">Library</a>
+      <a href="concordance.php">Words</a>
+      <a href="strongs.php">Strong&rsquo;s</a>
       <a href="plans.php">Plans</a>
       <a href="me.php">Mine</a>
       <a href="about.php">About</a>

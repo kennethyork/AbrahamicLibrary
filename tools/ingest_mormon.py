@@ -340,9 +340,9 @@ def build_book_of_mormon(report):
         for cn, verses in chapters:
             ch = Chapter(cn, f'{short} {cn}')
             for vn, vtext in verses:
-                ch.verses.append({'n': vn,
-                                  'text': modernize.modernize(vtext, TIER, report),
-                                  'notes': []})
+                said, src = modernize.pair(vtext, TIER, report)
+                ch.verses.append({'n': vn, 'text': said, 'notes': [],
+                                  **({'src': src} if src else {})})
             w.add(ch)
         made.append(w.save())
     total_ch = sum(m['stats']['chapters'] for m in made)
@@ -406,9 +406,9 @@ def build_doctrine_and_covenants(report):
                               't': modernize.modernize(
                                   re.sub(r'\s+', ' ', head), TIER, report)})
         for vn, vtext in verses:
-            ch.verses.append({'n': vn,
-                              'text': modernize.modernize(vtext, TIER, report),
-                              'notes': []})
+            said, src = modernize.pair(vtext, TIER, report)
+            ch.verses.append({'n': vn, 'text': said, 'notes': [],
+                              **({'src': src} if src else {})})
         w.add(ch)
     m = w.save()
     note = '' if m['stats']['chapters'] == DC_SECTIONS else \
@@ -518,9 +518,9 @@ def build_pearl_of_great_price(report):
                 continue
             ch = Chapter(str(n), f'{short} {n}' if len(spans) > 1 else title)
             for vn, vtext in verses:
-                ch.verses.append({'n': vn,
-                                  'text': modernize.modernize(vtext, TIER, report),
-                                  'notes': []})
+                said, src = modernize.pair(vtext, TIER, report)
+                ch.verses.append({'n': vn, 'text': said, 'notes': [],
+                                  **({'src': src} if src else {})})
             w.add(ch)
         if len(w.chapters) != expected:
             print(f'  ! {title}: {len(w.chapters)} chapters, '

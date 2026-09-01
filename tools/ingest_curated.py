@@ -289,8 +289,11 @@ def build(spec, path, report):
         # a full-tier book.
         ch = Chapter(i, modernize.modernize(heading, 'full') or f'Part {i}')
         for p in paras:
-            ch.blocks.append({'k': 'p',
-                              't': modernize.modernize(p, 'full', report)})
+            text, src = modernize.pair(p, 'full', report)
+            block = {'k': 'p', 't': text}
+            if src:
+                block['s'] = src          # the paragraph as it was printed
+            ch.blocks.append(block)
         w.add(ch)
     if not w.chapters:
         return None, 'no chapters'

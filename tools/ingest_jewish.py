@@ -161,9 +161,9 @@ def build(title, display, section, version, canon_status, sort, report,
             text = plain(raw)
             if not text:
                 continue
-            ch.verses.append({'n': str(j),
-                              'text': modernize.modernize(text, 'full', report),
-                              'notes': []})
+            said, src = modernize.pair(text, 'full', report)
+            ch.verses.append({'n': str(j), 'text': said, 'notes': [],
+                              **({'src': src} if src else {})})
         if ch.verses:
             w.add(ch)
     if not w.chapters:
@@ -223,9 +223,9 @@ def main():
                 text = plain(raw)
                 if not text:
                     continue
-                ch.verses.append({'n': str(vi),
-                                  'text': modernize.modernize(text, 'full', report),
-                                  'notes': []})
+                said, src = modernize.pair(text, 'full', report)
+                ch.verses.append({'n': str(vi), 'text': said, 'notes': [],
+                                  **({'src': src} if src else {})})
             if ch.verses:
                 w.add(ch)
         if w.chapters:
