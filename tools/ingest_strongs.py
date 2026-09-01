@@ -27,7 +27,7 @@ import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from tools import corpus                                          # noqa: E402
+from tools import american, corpus, modernize                     # noqa: E402
 
 DEST = os.path.join(corpus.ROOT, 'sources', 'collector', 'strongs')
 DB = os.path.join(corpus.CORPUS, 'strongs.sqlite')
@@ -132,6 +132,40 @@ def parse(kind):
     return out
 
 
+# --- modernizing a lexicon, carefully ------------------------------------
+#
+# Strong's prose is Victorian and belongs in modern American English like
+# everything else here: `worshipper` should be `worshiper`, and `nay, i.e.
+# truly` should read `no, i.e. truly`.
+#
+# But a dictionary entry is not all prose. It carries pronunciation in braces
+# and brackets, and the modernizer cannot tell a phonetic spelling from an
+# archaic verb: turned loose on this file it rewrites `{o-doth’}` as
+# `{o-does’}`, `{bats-leeth’}` as `{bats-lees’}` and `{min-nay’}` as
+# `{min-no’}` — the `-eth` rule and the `nay -> no` swap firing inside
+# somebody's guide to saying a Hebrew word. So the guides are hidden first
+# and put back afterwards, and only the English between them is touched.
+RE_GUIDE = re.compile(r'\{[^}]*\}|\[[^\]]*\]')
+KEEP = '\x01'
+
+
+def polish(text, report=None):
+    """Modernize the English of an entry and leave the phonetics alone."""
+    if not text:
+        return text
+    kept = []
+
+    def hide(m):
+        kept.append(m.group(0))
+        return f'{KEEP}{len(kept) - 1}{KEEP}'
+
+    masked = RE_GUIDE.sub(hide, text)
+    out = modernize.modernize(masked, 'full', report)
+    for i, original in enumerate(kept):
+        out = out.replace(f'{KEEP}{i}{KEEP}', original)
+    return out
+
+
 RE_TOKEN = re.compile(r"[A-Za-z'‘’]{3,}")
 
 
@@ -198,8 +232,17 @@ def main():
         CREATE INDEX entry_word ON entry(word);
     """)
     total = 0
+    report = modernize.Report()
     for kind, spec in SCANS.items():
         got = parse(kind)
+        # The definitions are prose and are brought to modern American
+        # English like the rest of the archive. The list of renderings is
+        # not: it is a record of the words the King James translators
+        # actually used, and rewriting `shew` to `show` there would be
+        # putting words in their mouths. It is indexed under both instead,
+        # so a reader coming from a modernized text still finds it.
+        for e in got.values():
+            e['sense'] = polish(e['sense'], report)
         refs = centrality(got)
         rows = [(f'{spec["letter"]}{n}', kind, n, e['word'], e.get('pron', ''),
                  e['sense'], e['kjv'], refs.get(n, 0))
@@ -210,17 +253,26 @@ def main():
         # the core sense — `'owr` is simply `light` — while a word that is
         # first in a list of forty is a corner of a much larger meaning.
         # Ordering by the two together puts the word a reader wants on top.
-        pairs = []
+        pairs, both = [], 0
         for n, e in got.items():
             words = kjv_words(e['kjv'])
+            eid = f'{spec["letter"]}{n}'
             for w, r in words.items():
-                pairs.append((w, f'{spec["letter"]}{n}', r, len(words)))
+                pairs.append((w, eid, r, len(words)))
+                modern = american.americanize(w)
+                if modern != w and modern not in words:
+                    pairs.append((modern, eid, r, len(words)))
+                    both += 1
         db.executemany('INSERT INTO english VALUES (?,?,?,?)', pairs)
         total += len(rows)
         print(f'  {spec["title"]}: {len(rows):,} of {spec["entries"]:,} entries, '
-              f'{len(pairs):,} English words indexed back to them')
+              f'{len(pairs):,} English words indexed back to them'
+              + (f' ({both} of them a modern spelling of one)' if both else ''))
     db.commit()
     db.close()
+    r = report.as_dict()
+    print(f'  modernizer changed {r["changed_occurrences"]:,} occurrences of '
+          f'{r["changed_forms"]} forms in the definitions')
     print(f'strongs: {total:,} entries ({os.path.getsize(DB) / 1e6:.1f} MB)')
 
 

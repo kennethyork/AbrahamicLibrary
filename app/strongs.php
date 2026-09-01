@@ -76,7 +76,7 @@ require __DIR__ . '/inc/header.php';
         </p>
         <p class="lex-sense"><?= e($x['sense']) ?></p>
         <?php if ($x['kjv']): ?>
-          <p class="lex-kjv"><span>Rendered</span> <?= e($x['kjv']) ?></p>
+          <p class="lex-kjv"><span>King James renders it</span> <?= e($x['kjv']) ?></p>
         <?php endif; ?>
         <p class="lex-links">
           <a href="<?= e(u('concordance.php', ['w' => preg_replace('/[^A-Za-z].*$/', '', $x['word'])])) ?>">Count this word in the archive</a>
@@ -92,8 +92,20 @@ require __DIR__ . '/inc/header.php';
     public domain, scanned by archive.org. The Hebrew and Greek scripts
     themselves did not survive the scanner, so what is shown is Strong’s own
     transliteration, which is what an English reader wants in any case.
-    11,762 of the 14,298 entries were recovered; where one is missing, the
+    14,172 of the 14,298 entries were recovered; where one is missing, the
     scan of that page defeated it.
+  </p>
+  <p class="small muted">
+    Strong&rsquo;s own prose has been brought to modern American English like
+    everything else in the archive &mdash; <em>worshipper</em> to
+    <em>worshiper</em>, <em>nay</em> to <em>no</em> &mdash; with the
+    pronunciation guides masked first, so that <em>{o-doth&rsquo;}</em> is
+    still <em>{o-doth&rsquo;}</em> and not <em>{o-does&rsquo;}</em>. The list
+    of renderings is left exactly as printed: it is a record of the words the
+    King James translators used, and modernizing it would be putting words in
+    their mouths. It is indexed under both spellings, so a reader arriving
+    from a modernized text with <em>show</em> still finds the entry Strong
+    filed under <em>shew</em>.
   </p>
 </section>
 
