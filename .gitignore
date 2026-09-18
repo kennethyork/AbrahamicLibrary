@@ -1,16 +1,27 @@
+# --- the published site ----------------------------------------------------
+# GitHub Pages serves the repository root. The site's files — the pages,
+# assets/, and the bundles under corpus/ and data/ — are the built artifact.
+# They are tracked; the *source* corpus and the derived data that the build
+# tools can regenerate are not, so a developer running the tools cannot
+# commit gigabytes by accident.
+corpus/*
+!corpus/index.json
+!corpus/meta.bin
+!corpus/judaism/
+!corpus/christianity/
+!corpus/islam/
+
+data/*
+!data/bundle.json.gz
+!data/bundle*.bin
+
 # --- generated -------------------------------------------------------------
-# The corpus is built, not authored: `python -m tools.build_all` makes it from
-# the sources below. Four gigabytes of JSON and a two-and-a-half gigabyte
-# search index have no business in a repository.
-corpus/
 build/
 __pycache__/
 *.pyc
 *.tmp
 
 # --- downloaded ------------------------------------------------------------
-# Three gigabytes of scans and transcriptions, every one of them fetched by a
-# tool in `tools/` and every one of them public domain. Re-run the fetchers.
 sources/
 
 # --- local -----------------------------------------------------------------
@@ -18,13 +29,4 @@ sources/
 .trash/
 
 # --- the voice ------------------------------------------------------------
-# A 114 MB neural model. Public domain, and re-downloadable: see app/speak.php.
 voices/
-corpus/audio/
-
-# --- the published static site --------------------------------------------
-# docs/ is the built site GitHub Pages serves. The corpus/ and sources/
-# rules above describe the *source* tree; the site's own bundles are the
-# published artifact and are tracked.
-!docs/
-!docs/**
