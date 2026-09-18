@@ -21,3 +21,10 @@ sources/
 # A 114 MB neural model. Public domain, and re-downloadable: see app/speak.php.
 voices/
 corpus/audio/
+
+# --- the published static site --------------------------------------------
+# docs/ is the built site GitHub Pages serves. The corpus/ and sources/
+# rules above describe the *source* tree; the site's own bundles are the
+# published artifact and are tracked.
+!docs/
+!docs/**
