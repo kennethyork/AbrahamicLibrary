@@ -29,7 +29,7 @@ $bodyClass   = $bodyClass   ?? '';
     <a class="brand" href="index.php">
       <span class="mark" aria-hidden="true"></span>
       <span class="brand-text">
-        <strong>The Abrahamic Archive</strong>
+        <strong>The Abrahamic Library</strong>
         <small><?= e(APP_TAGLINE) ?></small>
       </span>
     </a>

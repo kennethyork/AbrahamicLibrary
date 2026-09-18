@@ -1,4 +1,4 @@
-/* The Abrahamic Archive — service worker.
+/* The Abrahamic Library — service worker.
  *
  * What this can and cannot do is worth stating plainly. The corpus is two
  * gigabytes of JSON and the search index another two and a half; none of that

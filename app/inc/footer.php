@@ -3,7 +3,7 @@
 <footer class="site-foot">
   <div class="wrap foot-grid">
     <div>
-      <strong>The Abrahamic Archive</strong>
+      <strong>The Abrahamic Library</strong>
       <p class="muted">Every <em>text</em> here is in the public domain, and so
         is this edition of it: free to read, copy, print, sell and give away.
         The software that serves it is free too, under the MIT License.</p>

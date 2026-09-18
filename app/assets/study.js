@@ -1,4 +1,4 @@
-/* The Abrahamic Archive — the study layer.
+/* The Abrahamic Library — the study layer.
    Choosing verses, highlighting them, writing notes on them, and remembering
    where you were. Vanilla JS, no libraries.
 

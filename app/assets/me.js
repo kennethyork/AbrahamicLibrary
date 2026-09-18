@@ -126,7 +126,7 @@
   if (out) {
     out.addEventListener('click', function () {
       var payload = {
-        archive: 'The Abrahamic Archive',
+        archive: 'The Abrahamic Library',
         saved: new Date().toISOString(),
         notes: notes, highlights: hl, history: hist, bookmarks: marks
       };

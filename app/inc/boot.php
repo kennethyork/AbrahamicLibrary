@@ -1,6 +1,6 @@
 <?php
 /**
- * The Abrahamic Archive — configuration and the whole data layer.
+ * The Abrahamic Library — configuration and the whole data layer.
  *
  * There is no framework and no dependency here. The reading texts are flat
  * JSON files under ../corpus, one per chapter, and the search index is a
@@ -9,7 +9,7 @@
  */
 declare(strict_types=1);
 
-const APP_NAME    = 'The Abrahamic Archive';
+const APP_NAME    = 'The Abrahamic Library';
 const APP_TAGLINE = 'Judaism, Christianity and Islam in modern English';
 
 /* The colours a reader can mark a verse with. Named rather than numbered so

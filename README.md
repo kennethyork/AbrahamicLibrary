@@ -45,10 +45,15 @@ The whole library is **38 files** in `docs/`.
 | `docs/sw.js`, `docs/manifest.json`, `docs/offline.html` | The service worker, the web-app manifest, the offline page |
 | `docs/CNAME` | The custom domain GitHub Pages answers for |
 
-Also here: `LICENSE` (MIT, covering the software), `NOTICE.md` (what is
-free and what is not), and — though the published library does not use
-them — `app/` (the original PHP application the site was ported from),
-`bible/` and `fonts/` (the print pipeline and its typefaces).
+Also here, and not used by the published library:
+
+- **`LICENSE`** — MIT, covering all the software in this repository.
+- **`bible/`** — the print pipeline that typesets *Apocrypha Plus*, the
+  printed companion volume. Its own README is in the folder.
+- **`fonts/`** — Gentium Plus and Gentium Book Plus, the typefaces the book
+  is set in, under the SIL Open Font License. Their README says so.
+- **`app/`** — the original PHP application the site was ported from,
+  kept for reference. The published library does not run PHP.
 
 Nothing on the site talks to a server beyond asking for files. Highlights,
 notes, bookmarks, reading positions and plan progress live in the browser's

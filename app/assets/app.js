@@ -1,4 +1,4 @@
-/* The Abrahamic Archive — vanilla JS, no libraries.
+/* The Abrahamic Library — vanilla JS, no libraries.
    Theme, reading preferences, verse anchors and bookmarks.
    Everything stored here is per-reader and lives only in this browser. */
 (function () {
