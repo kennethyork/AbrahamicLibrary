@@ -152,8 +152,8 @@ require __DIR__ . '/inc/header.php';
 
     <p>Every text here is free to read, copy, print, sell and give away.
        That applies to the texts and to these modernized editions of them.
-       It does not apply to the software that serves them, which is the
-       author&rsquo;s and is not open source.</p></div>
+       The software that serves them is free too, under the MIT License:
+       use it, change it, publish it, sell it, keep the notice with it.</p></div>
 
   <div class="panel">
     <p class="muted small">

@@ -6,7 +6,7 @@
       <strong>The Abrahamic Archive</strong>
       <p class="muted">Every <em>text</em> here is in the public domain, and so
         is this edition of it: free to read, copy, print, sell and give away.
-        The site itself is not &mdash; the software is the author&rsquo;s.</p>
+        The software that serves it is free too, under the MIT License.</p>
     </div>
     <nav aria-label="Footer">
       <a href="library.php">The whole library</a>

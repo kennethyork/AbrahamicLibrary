@@ -45,9 +45,10 @@ The whole library is **38 files** in `docs/`.
 | `docs/sw.js`, `docs/manifest.json`, `docs/offline.html` | The service worker, the web-app manifest, the offline page |
 | `docs/CNAME` | The custom domain GitHub Pages answers for |
 
-Also here, though the published library does not use them: `app/` (the
-original PHP application the site was ported from), `bible/` and `fonts/`
-(the print pipeline and its typefaces), and `NOTICE.md`.
+Also here: `LICENSE` (MIT, covering the software), `NOTICE.md` (what is
+free and what is not), and — though the published library does not use
+them — `app/` (the original PHP application the site was ported from),
+`bible/` and `fonts/` (the print pipeline and its typefaces).
 
 Nothing on the site talks to a server beyond asking for files. Highlights,
 notes, bookmarks, reading positions and plan progress live in the browser's
@@ -110,9 +111,9 @@ than the corpus, so changing a page costs seconds rather than an hour.
 ## Rights
 
 - The **texts** are public domain, and so are these modernized editions of
-  them: free to read, copy, print, sell and give away. Each work's page
-  names its source and its rights; `about.html` lists every rights
-  statement in the library.
+  them: free to read, copy, print, sell and give away, no permission or
+  attribution needed. Each work's page names its source and its rights;
+  `about.html` lists every rights statement in the library.
 - The **Strong's dictionaries** are James Strong, *The Exhaustive
   Concordance of the Bible* (1894), public domain, scanned by archive.org
   and transcribed by Open Scriptures (CC BY-SA).
@@ -120,4 +121,5 @@ than the corpus, so changing a page costs seconds rather than an hour.
   Bible (the Westminster Leningrad Codex with morphology), CC BY 4.0.
 - The **Greek interlinear** is the Statistical Restoration Greek New
   Testament, provided by `scrollmapper/bible_databases`, CC BY 4.0.
-- The **software** is the author's.
+- The **software** is free under the [MIT License](LICENSE): use it, change
+  it, publish it, sell it, keep the notice with it.

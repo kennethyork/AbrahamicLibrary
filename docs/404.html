@@ -4,7 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Not found — The Abrahamic Library</title>
+<meta name="description" content="Judaism, Christianity and Islam in modern English">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#faf8f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14140f" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Archive">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-180.png">
 <link rel="icon" type="image/png" href="assets/icons/favicon-32.png?v=2">
 </head>
 <body>
@@ -18,6 +26,32 @@
         <small>Judaism, Christianity and Islam in modern English</small>
       </span>
     </a>
+
+    <div class="bar-right">
+      <nav class="nav" aria-label="Main">
+        <a href="library.html?religion=judaism" class="r-judaism">Judaism</a>
+        <a href="library.html?religion=christianity" class="r-christianity">Christianity</a>
+        <a href="library.html?religion=islam" class="r-islam">Islam</a>
+        <a href="library.html">Library</a>
+        <a href="search.html">Search</a>
+        <a href="strongs.html">Word study</a>
+        <a href="plans.html">Plans</a>
+        <a href="me.html">Mine</a>
+        <a href="about.html">About</a>
+        <button class="theme" type="button" data-theme-toggle aria-label="Switch between light and dark">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+        </button>
+      </nav>
+
+      <form class="find" action="search.html" method="get" role="search">
+        <label class="sr" for="q">Search</label>
+        <input type="search" id="q" name="q" placeholder="Search books, verses, words&hellip;"
+               autocomplete="off" aria-label="Search">
+        <button type="submit" aria-label="Search">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M10 2a8 8 0 1 0 4.9 14.3l4.4 4.4 1.4-1.4-4.4-4.4A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12z" fill="currentColor"/></svg>
+        </button>
+      </form>
+    </div>
   </div>
 </header>
 
@@ -46,42 +80,23 @@
       <strong>The Abrahamic Library</strong>
       <p class="muted">Every <em>text</em> here is in the public domain, and so
         is this edition of it: free to read, copy, print, sell and give away.
-        The site itself is not &mdash; the software is the author&rsquo;s.</p>
+        The software that serves it is free too, under the MIT License.</p>
     </div>
+    <nav aria-label="Footer">
+      <a href="library.html">The whole library</a>
+      <a href="about.html">How the texts were prepared</a>
+      <a href="about.html#rights">Sources and rights</a>
+      <a href="me.html">Your highlights and notes</a>
+      <a href="plans.html">Reading plans</a>
+      <button class="linkish" type="button" data-install hidden>Install the archive</button>
+    </nav>
+    <p class="muted small">
+      Built from eBible.org, Sefaria, Project Gutenberg and the Christian
+      Classics Ethereal Library.
+    </p>
   </div>
 </footer>
 
-<script>
-/* Addresses from before the site was packed into shells: `work-<id>.html`,
-   `library-<religion>[-<section>[-<page>]].html`, `plan-<id>.html`. A host
-   answers a missing file with this page, so the mapping from an old
-   address to the view it named lives here and the reader is sent on. */
-(function () {
-  var path = location.pathname.split('/').pop();
-  var q = location.search || '';
-
-  var m = /^work-([A-Za-z0-9._-]+?)(?:-(\d+))?\.html$/.exec(path);
-  if (m) {
-    location.replace('work.html?work=' + encodeURIComponent(m[1]) +
-                     (m[2] ? '&p=' + m[2] : '') + (q ? '&' + q.slice(1) : ''));
-    return;
-  }
-  m = /^plan-([A-Za-z0-9._-]+)\.html$/.exec(path);
-  if (m) {
-    location.replace('plan.html?id=' + encodeURIComponent(m[1]));
-    return;
-  }
-  m = /^library-([a-z]+)(?:-([a-z-]+?))?(?:-(\d+))?\.html$/.exec(path);
-  if (m) {
-    var out = 'library.html?religion=' + encodeURIComponent(m[1]);
-    if (m[2]) out += '&section=' + encodeURIComponent(m[2]);
-    if (m[3]) out += '&p=' + m[3];
-    location.replace(out);
-    return;
-  }
-
-  document.querySelector('[data-was]').hidden = true;
-})();
-</script>
-</body>
+<script src="assets/site.js" defer></script>
+<script src="assets/notfound.js"></script></body>
 </html>
