@@ -1,28 +1,19 @@
 # --- the published site ----------------------------------------------------
-# GitHub Pages serves the repository root. The site's files — the pages,
-# assets/, and the bundles under corpus/ and data/ — are the built artifact.
-# They are tracked; the *source* corpus and the derived data that the build
-# tools can regenerate are not, so a developer running the tools cannot
-# commit gigabytes by accident.
-corpus/*
-!corpus/index.json
-!corpus/meta.bin
-!corpus/judaism/
-!corpus/christianity/
-!corpus/islam/
-
-data/*
-!data/bundle.json.gz
-!data/bundle*.bin
+# GitHub Pages serves docs/: the pages, assets/, and the bundles under
+# docs/corpus/ and docs/data/. Those are the built artifact and are tracked.
+# The *source* corpus, the downloaded scans and the derived data that the
+# build tools can regenerate are not, so a developer running the tools in
+# this repository cannot commit gigabytes by accident.
+corpus/
+sources/
+build/
+docs/corpus/*.bin
+!docs/corpus/*.bin
 
 # --- generated -------------------------------------------------------------
-build/
 __pycache__/
 *.pyc
 *.tmp
-
-# --- downloaded ------------------------------------------------------------
-sources/
 
 # --- local -----------------------------------------------------------------
 .venv/
