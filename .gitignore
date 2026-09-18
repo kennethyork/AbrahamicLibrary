@@ -1,14 +1,15 @@
 # --- the published site ----------------------------------------------------
-# GitHub Pages serves docs/: the pages, assets/, and the bundles under
+# GitHub Pages serves docs/: the pages, docs/assets/, and the bundles under
 # docs/corpus/ and docs/data/. Those are the built artifact and are tracked.
-# The *source* corpus, the downloaded scans and the derived data that the
-# build tools can regenerate are not, so a developer running the tools in
-# this repository cannot commit gigabytes by accident.
+#
+# The rules below describe the *source* tree — a developer running the
+# tools in this repository should not be able to commit gigabytes by
+# accident — so they name the source directories exactly, and never
+# docs/.
 corpus/
 sources/
 build/
-docs/corpus/*.bin
-!docs/corpus/*.bin
+voices/
 
 # --- generated -------------------------------------------------------------
 __pycache__/
@@ -18,6 +19,3 @@ __pycache__/
 # --- local -----------------------------------------------------------------
 .venv/
 .trash/
-
-# --- the voice ------------------------------------------------------------
-voices/
