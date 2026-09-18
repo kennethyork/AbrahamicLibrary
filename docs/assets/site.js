@@ -289,7 +289,8 @@
   /* ---------- one chapter, out of its bundle ----------
      Each chapter is its own gzip member in a religion's bundle, and its
      place in that bundle is recorded beside it in the work's metadata:
-     [chapter number, title, verse count, bundle number, offset, length]. */
+     [chapter number, title, verse count, bundle number, offset, length,
+     units modernized]. */
 
   function chapter(workId, n) {
     var key = workId + '|' + n;
@@ -1041,30 +1042,50 @@
      not what it says. That is only checkable if the words that were there are
      still there, so the ingesters keep both and this puts the old one back on
      the page. Only verses that actually changed carry a `data-src`; the rest
-     were already modern and have nothing to show. */
-  var printed = false;
+     were already modern and have nothing to show.
+
+     A book page's own "As printed" button opens the reader with
+     `?as=printed`, and the choice is kept against the work, so the words the
+     translator printed stay showing as the reader moves through the book —
+     the toggle says "Modernized" and turns them off again. */
+  var prefs = DB.read('printed', {});
+  var workId = reader.dataset.work || '';
+  var asked = false;
+  try { asked = AA.query().as === 'printed'; } catch (e) { asked = false; }
+  if (asked && workId) { prefs[workId] = 1; DB.write('printed', prefs); }
+  var printed = !!prefs[workId];
+
   var asPrinted = document.querySelector('[data-as-printed]');
   var changed = document.querySelectorAll('.scripture [data-src]');
+
+  function applyPrinted(on) {
+    printed = on;
+    changed.forEach(function (el) {
+      var slot = el.querySelector('.t');
+      if (!slot) return;
+      if (printed) {
+        if (!el.dataset.mod) el.dataset.mod = slot.textContent;
+        slot.textContent = el.dataset.src;
+      } else if (el.dataset.mod) {
+        slot.textContent = el.dataset.mod;
+      }
+    });
+    asPrinted.setAttribute('aria-pressed', printed ? 'true' : 'false');
+    asPrinted.textContent = printed ? 'Modernized' : 'As printed';
+    var col = document.querySelector('.scripture');
+    if (col) col.classList.toggle('as-printed', printed);
+    relayout();
+  }
 
   if (asPrinted && changed.length) {
     asPrinted.hidden = false;
     asPrinted.title = changed.length + ' of these were modernized';
+    if (printed) applyPrinted(true);
     asPrinted.addEventListener('click', function () {
       printed = !printed;
-      changed.forEach(function (el) {
-        var slot = el.querySelector('.t');
-        if (!slot) return;
-        if (printed) {
-          if (!el.dataset.mod) el.dataset.mod = slot.textContent;
-          slot.textContent = el.dataset.src;
-        } else if (el.dataset.mod) {
-          slot.textContent = el.dataset.mod;
-        }
-      });
-      asPrinted.setAttribute('aria-pressed', printed ? 'true' : 'false');
-      asPrinted.textContent = printed ? 'Modernized' : 'As printed';
-      document.querySelector('.scripture').classList.toggle('as-printed', printed);
-      relayout();
+      if (printed) prefs[workId] = 1; else delete prefs[workId];
+      DB.write('printed', prefs);
+      applyPrinted(printed);
     });
   }
 
@@ -2818,6 +2839,7 @@
   var subtitle = root.querySelector('[data-work-subtitle]');
   var start = root.querySelector('[data-work-start]');
   var compare = root.querySelector('[data-work-compare]');
+  var printed = root.querySelector('[data-work-printed]');
   var head = root.querySelector('[data-contents-heading]');
   var countLine = root.querySelector('[data-contents-count]');
   var contents = root.querySelector('[data-contents]');
@@ -2859,13 +2881,30 @@
       subtitle.textContent = meta.subtitle;
     }
 
-    /* A chapter entry is [number, title, verse count, bundle, offset, length]. */
+    /* A chapter entry is [number, title, verse count, bundle, offset, length,
+       changed units]. Where a text was modernized, the book's page carries an
+       "As printed" button that opens the first chapter the modernizer touched,
+       with the words exactly as the translator printed them — the reader's own
+       toggle then keeps that choice for the rest of the book. */
     var chapters = meta.chapters || [];
     var first = chapters.length ? chapters[0][0] : '1';
     start.href = AA.u('read.php', { work: id, c: first });
     if (others.length) {
       compare.hidden = false;
       compare.href = AA.u('compare.php', { work: id, c: first });
+    }
+    var tally = meta.as_printed || {};
+    var changedChapters = chapters.filter(function (c) { return c[6]; });
+    if (printed) {
+      if (changedChapters.length && tally.units) {
+        printed.hidden = false;
+        printed.href = AA.u('read.php', { work: id, c: changedChapters[0][0], as: 'printed' });
+        printed.title = 'Open this book with the words as they were printed \u2014 ' +
+          AA.num(tally.units) + ' verse' + (tally.units === 1 ? '' : 's') +
+          ' or sections in it were modernized.';
+      } else {
+        printed.remove();
+      }
     }
 
     /* A Fathers volume can run to a thousand named sections, so the
@@ -2935,6 +2974,11 @@
     }
 
     tier.innerHTML = AA.e(AA.tierLabel(ed.modernization)) +
+      (tally.units && changedChapters.length
+        ? ' \u00b7 ' + AA.num(tally.units) + ' verse' +
+          (tally.units === 1 ? '' : 's') + ' or sections in this work were ' +
+          'changed, and can be read as printed above'
+        : '') +
       '. <a href="about.html">What that changed</a>.';
   }
 })();

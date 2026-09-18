@@ -6,7 +6,7 @@
  * chapter you have actually opened, plus any a reading plan was asked to
  * save. That is the offline people use.
  */
-var VERSION = 'aa-v2';
+var VERSION = 'aa-v3';
 var SHELL   = VERSION + '-shell';
 var PAGES   = VERSION + '-pages';
 

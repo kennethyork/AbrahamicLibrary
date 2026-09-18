@@ -36,7 +36,7 @@ The whole library is **38 files** in `docs/`.
 | `docs/plans.html`, `docs/plan.html` | 115 reading plans — `plan.html?id=torah` |
 | `docs/about.html`, `docs/me.html` | What was done to the texts; your own highlights and notes |
 | `docs/corpus/index.json` | Every work id, with where its metadata sits in `meta.bin` |
-| `docs/corpus/meta.bin` | One gzip member per work: its metadata and each chapter's place in a bundle |
+| `docs/corpus/meta.bin` | One gzip member per work: its metadata, its tally of modernized verses, and each chapter's place in a bundle |
 | `docs/corpus/<religion>/b*.bin` | The chapter text itself, gzipped members read by byte range |
 | `docs/data/bundle*.bin` | The catalog, the plans, the Strong's dictionaries, the interlinear, the citation index and the search index |
 | `docs/data/bundle.json.gz` | Where each part of the data bundles lives |
@@ -69,7 +69,9 @@ on request.
   view; the sections follow.
 - **Reader** — a chapter with the translator's notes in one margin and
   yours in the other, a *Flowing* toggle, *As printed* for the verses the
-  modernizer changed, highlighters, notes, copying and linking.
+  modernizer changed (a work's page offers it too, opening the book in that
+  mode and keeping the choice as you read on), highlighters, notes, copying
+  and linking.
 - **Compare** — the same chapter in every translation the library holds,
   verse by verse.
 - **Word study** — an English word and the Hebrew and Greek standing behind
