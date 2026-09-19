@@ -2188,6 +2188,31 @@
     return t.content;
   }
 
+  /* A random verse: the home page's link asks for one; pick a random chapter
+     of the KJV Bible and a random verse in it, then send the reader there,
+     as the PHP site's search.php did. */
+  if (q.random) {
+    AA.work('kjv-bible').then(function (meta) {
+      var chapters = (meta && meta.chapters) || [];
+      if (!chapters.length) {
+        fail('No such chapter', 'The library lists everything the archive holds.', 'library.html', 'Open the library');
+        return;
+      }
+      var ch = chapters[Math.floor(Math.random() * chapters.length)];
+      AA.chapter('kjv-bible', ch[0]).then(function (chapter) {
+        var vs = (chapter && chapter.verses) || [];
+        if (!vs.length) {
+          fail('No such chapter', 'The library lists everything the archive holds.', 'library.html', 'Open the library');
+          return;
+        }
+        var v = vs[Math.floor(Math.random() * vs.length)];
+        location.replace(AA.u('read.php', { work: 'kjv-bible', c: ch[0] }) +
+          '#v' + String(v.n).replace(/[^0-9a-z]/gi, ''));
+      });
+    });
+    return;
+  }
+
   AA.work(id).then(function (meta) {
     if (!meta) { fail('No such work', 'It may have been renamed. The library lists everything.', 'library.html', 'Open the library'); return; }
     return AA.chapter(id, n).then(function (ch) {
@@ -2383,6 +2408,36 @@
     var mark = reader.querySelector('[data-bookmark]');
     if (mark) mark.setAttribute('data-bookmark', meta.title + ' ' + n);
     reader.dispatchEvent(new CustomEvent('aa:chapter', { bubbles: true }));
+
+    /* The browser looked for the anchor when the shell was still empty, so
+       land on it now that the chapter is drawn. Scroll it to the top first,
+       then measure the sticky bars where they have come to rest: one may
+       tuck behind the other on a narrow window, and what matters is the
+       lowest edge actually over the text. Redone next frame, when the
+       margins have settled, and once more when the fonts have loaded. */
+    if (location.hash && document.getElementById(location.hash.slice(1))) {
+      function anchor() {
+        var el = document.getElementById(location.hash.slice(1));
+        if (!el) return;
+        el.scrollIntoView({ block: 'start' });
+        var r = el.getBoundingClientRect();
+        var bars = document.querySelectorAll('.site, .reader-tools');
+        var bottom = 0;
+        for (var i = 0; i < bars.length; i++) {
+          var b = bars[i].getBoundingClientRect();
+          if (b.height && b.bottom > bottom) bottom = b.bottom;
+        }
+        window.scrollBy(0, r.top - (bottom + 8));
+      }
+      window.dispatchEvent(new Event('hashchange'));
+      anchor();
+      requestAnimationFrame(function () {
+        anchor();
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(function () { anchor(); });
+        }
+      });
+    }
   }
 })();
 

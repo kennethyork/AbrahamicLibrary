@@ -351,7 +351,7 @@ img { max-width: 100%; }
   font-size: var(--read-size, 1.16rem);
   line-height: var(--read-leading, 1.75);
 }
-.scripture .v { display: block; margin-bottom: .55rem; }
+.scripture .v { display: block; margin-bottom: .55rem; scroll-margin-top: 7rem; }
 .scripture.flowing .v { display: inline; margin: 0; }
 .scripture.flowing { text-align: justify; hyphens: auto; }
 
@@ -695,7 +695,8 @@ body:has(.vbar:not([hidden])) .reader { padding-bottom: 9rem; }
 
 /* A prose paragraph is a study unit too — same colours, same behaviour. */
 .scripture .pb { cursor: pointer; border-radius: 4px; padding: .1rem .25rem;
-                 margin-inline: -.25rem; transition: background-color .12s ease; }
+                 margin-inline: -.25rem; transition: background-color .12s ease;
+                 scroll-margin-top: 7rem; }
 .scripture .pb.hl-amber  { background: var(--hl-amber); }
 .scripture .pb.hl-rose   { background: var(--hl-rose); }
 .scripture .pb.hl-sage   { background: var(--hl-sage); }
